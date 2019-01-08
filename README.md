@@ -2,6 +2,4 @@
 
 Team XENA
 
-Members:
-
 Mila Roisin
