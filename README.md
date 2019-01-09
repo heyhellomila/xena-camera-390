@@ -1,5 +1,8 @@
 Team XENA
 
-Mila Roisin
-Anamika Pancholy
-Jamal Ghamraoui
+Name |
+--- |
+Mila Roisin |
+Anamika Pancholy |
+Jamal Ghamraoui |
+Daniel Privorotsky |
