@@ -3,6 +3,7 @@ Team XENA
 Name |
 --- |
 Mila Roisin |
+Patrick Pin |
 Anamika Pancholy |
 Jamal Ghamraoui |
 Daniel Privorotsky |
