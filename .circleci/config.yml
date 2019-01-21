@@ -7,7 +7,7 @@ jobs:
   build:
     working_directory: ~/app/src/main/kotlin
     docker:
-      - image: circleci/android:api-25-alpha
+      - image: circleci/android:api-28-alpha
     environment:
       JVM_OPTS: -Xmx3200m
     steps:
