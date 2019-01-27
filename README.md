@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/milaroisin/xena-camera-390/tree/master.svg?style=svg&circle-token=04406db3ca2e91cf5686b6cf9b84adc5666a0ee2)](https://circleci.com/gh/milaroisin/xena-camera-390/tree/master)
+
 Team XENA
 
 Name |
