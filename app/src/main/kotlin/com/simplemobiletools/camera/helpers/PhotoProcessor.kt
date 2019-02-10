@@ -11,7 +11,7 @@ import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.activities.MainActivity
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.extensions.getOutputMediaFile
-import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.extensions.* // ktlint-disable no-wildcard-imports
 import com.simplemobiletools.commons.helpers.isNougatPlus
 import java.io.File
 import java.io.FileNotFoundException
