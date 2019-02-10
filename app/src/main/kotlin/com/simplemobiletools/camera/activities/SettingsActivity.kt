@@ -49,7 +49,7 @@ class SettingsActivity : SimpleActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.about -> launchAbout()
+            R.id.about_faq -> launchAbout()
             else -> super.onOptionsItemSelected(item)
         }
         return true

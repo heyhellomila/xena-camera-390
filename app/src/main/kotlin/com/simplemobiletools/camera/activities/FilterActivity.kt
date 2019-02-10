@@ -10,6 +10,7 @@ import com.simplemobiletools.camera.filter.FilterListFragment
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.Utils.BitmapUtils
 import com.simplemobiletools.camera.adapter.ViewPagerAdapter
+import com.zomato.photofilters.imageprocessors.Filter
 import com.zomato.photofilters.imageprocessors.subfilters.BrightnessSubFilter
 import com.zomato.photofilters.imageprocessors.subfilters.ContrastSubFilter
 import com.zomato.photofilters.imageprocessors.subfilters.SaturationSubfilter
@@ -18,6 +19,10 @@ import kotlinx.android.synthetic.main.content_filter.*
 
 
 class FilterActivity : AppCompatActivity(), FilterListFragmentListener, EditImageImageFragmentListener {
+
+    override fun onFilterSelected(filter: com.zomato.photofilters.imageprocessors.Filter) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override fun onBrightnessChanged(brightness: Int) {
       brightnessFinal = brightness
