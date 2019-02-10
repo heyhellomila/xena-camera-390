@@ -18,8 +18,14 @@ import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.OutputStream
 
-class PhotoProcessor(val activity: MainActivity, val saveUri: Uri?, val deviceOrientation: Int, val previewRotation: Int, val isUsingFrontCamera: Boolean,
-                     val isThirdPartyIntent: Boolean) :
+class PhotoProcessor(
+    val activity: MainActivity,
+    val saveUri: Uri?,
+    val deviceOrientation: Int,
+    val previewRotation: Int,
+    val isUsingFrontCamera: Boolean,
+    val isThirdPartyIntent: Boolean
+) :
         AsyncTask<ByteArray, Void, String>() {
 
     override fun doInBackground(vararg params: ByteArray): String {
