@@ -34,6 +34,7 @@ android {
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
     }
 
     lintOptions {
@@ -44,6 +45,10 @@ android {
 
 dependencies {
     implementation 'com.simplemobiletools:commons:5.1.4'
+
+    //standard Junit and mockito
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.8.9'
 }
 
 Properties props = new Properties()
@@ -63,4 +68,7 @@ if (propFile.canRead()) {
 } else {
     println 'signing.properties not found'
     android.buildTypes.release.signingConfig = null
+}
+repositories {
+    mavenCentral()
 }
