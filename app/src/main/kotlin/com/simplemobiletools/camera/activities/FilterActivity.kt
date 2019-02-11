@@ -3,8 +3,8 @@ package com.simplemobiletools.camera.activities
 import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.simplemobiletools.camera.Interface.EditImageImageFragmentListener
-import com.simplemobiletools.camera.Interface.FilterListFragmentListener
+import com.simplemobiletools.camera.interfaces.EditImageFragmentListener
+import com.simplemobiletools.camera.interfaces.FilterListFragmentListener
 import com.simplemobiletools.camera.filter.EditImageFragment
 import com.simplemobiletools.camera.filter.FilterListFragment
 import com.simplemobiletools.camera.R
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_filter.*
 import kotlinx.android.synthetic.main.content_filter.*
 
 
-class FilterActivity : AppCompatActivity(), FilterListFragmentListener, EditImageImageFragmentListener {
+class FilterActivity : AppCompatActivity(), FilterListFragmentListener, EditImageFragmentListener {
 
     override fun onFilterSelected(filter: com.zomato.photofilters.imageprocessors.Filter) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

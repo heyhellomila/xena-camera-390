@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.simplemobiletools.camera.Interface.FilterListFragmentListener
+import com.simplemobiletools.camera.interfaces.FilterListFragmentListener
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.Utils.BitmapUtils
 import com.simplemobiletools.camera.Utils.SpaceItemDecoration

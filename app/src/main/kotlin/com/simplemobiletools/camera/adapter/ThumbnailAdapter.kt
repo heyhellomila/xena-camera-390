@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.simplemobiletools.camera.R
 import androidx.recyclerview.widget.RecyclerView
-import com.simplemobiletools.camera.Interface.FilterListFragmentListener
+import com.simplemobiletools.camera.interfaces.FilterListFragmentListener
 import com.zomato.photofilters.utils.ThumbnailItem
 import kotlinx.android.synthetic.main.thumbnail_list_item.view.*
 

@@ -1,4 +1,4 @@
-package com.simplemobiletools.camera.Interface
+package com.simplemobiletools.camera.interfaces
 
 import android.net.Uri
 

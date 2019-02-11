@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
-import com.simplemobiletools.camera.Interface.EditImageImageFragmentListener
+import com.simplemobiletools.camera.interfaces.EditImageFragmentListener
 import com.simplemobiletools.camera.R
 import kotlinx.android.synthetic.main.fragment_edit_image.*
 
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_edit_image.*
  */
 class EditImageFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
 
-    private var listener: EditImageImageFragmentListener?=null
+    private var listener: EditImageFragmentListener?=null
 
     fun resetControls()
     {
