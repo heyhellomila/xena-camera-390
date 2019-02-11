@@ -46,7 +46,7 @@ dependencies {
 
     //standard Junit and mockito
     testImplementation 'junit:junit:4.12'
-    testImplementation "org.mockito:mockito-core:2.7.22"
+    testImplementation 'org.mockito:mockito-core:2.8.9'
 }
 
 Properties props = new Properties()
