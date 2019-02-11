@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.simplemobiletools.camera.interfaces.FilterListFragmentListener
 import com.simplemobiletools.camera.R
-import com.simplemobiletools.camera.Utils.BitmapUtils
-import com.simplemobiletools.camera.Utils.SpaceItemDecoration
+import com.simplemobiletools.camera.utils.BitmapUtils
+import com.simplemobiletools.camera.utils.SpaceItemDecoration
 import com.simplemobiletools.camera.activities.FilterActivity
 import com.simplemobiletools.camera.adapter.ThumbnailAdapter
 import com.zomato.photofilters.FilterPack

@@ -1,4 +1,4 @@
-package com.simplemobiletools.camera.Utils
+package com.simplemobiletools.camera.utils
 
 import android.content.ContentResolver
 import android.content.ContentUris

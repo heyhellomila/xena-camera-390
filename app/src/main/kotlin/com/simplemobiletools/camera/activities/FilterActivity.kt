@@ -8,7 +8,8 @@ import com.simplemobiletools.camera.interfaces.FilterListFragmentListener
 import com.simplemobiletools.camera.filter.EditImageFragment
 import com.simplemobiletools.camera.filter.FilterListFragment
 import com.simplemobiletools.camera.R
-import com.simplemobiletools.camera.Utils.BitmapUtils
+import com.simplemobiletools.camera.utils.BitmapUtils
+import com.simplemobiletools.camera.utils.NonSwipeableViewPager
 import com.simplemobiletools.camera.adapter.ViewPagerAdapter
 import com.zomato.photofilters.imageprocessors.Filter
 import com.zomato.photofilters.imageprocessors.subfilters.BrightnessSubFilter
