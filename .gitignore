@@ -22,3 +22,7 @@
 /captures
 release.keystore
 signing.properties
+
+#intelliJ files
+app/.idea/
+app/local.properties
