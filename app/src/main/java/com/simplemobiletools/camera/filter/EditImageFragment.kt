@@ -2,11 +2,11 @@ package com.simplemobiletools.camera.filter
 
 
 import android.os.Bundle
-import android.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import androidx.fragment.app.Fragment
 import com.simplemobiletools.camera.interfaces.EditImageFragmentListener
 import com.simplemobiletools.camera.R
 import kotlinx.android.synthetic.main.fragment_edit_image.*

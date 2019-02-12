@@ -2,12 +2,12 @@ package com.simplemobiletools.camera.filter
 
 
 import android.os.Bundle
-import android.app.Fragment
 import android.graphics.Bitmap
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.simplemobiletools.camera.interfaces.FilterListFragmentListener
