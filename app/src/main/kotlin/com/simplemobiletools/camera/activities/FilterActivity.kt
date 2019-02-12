@@ -22,7 +22,10 @@ import kotlinx.android.synthetic.main.content_filter.*
 class FilterActivity : AppCompatActivity(), FilterListFragmentListener, EditImageFragmentListener {
 
     override fun onFilterSelected(filter: com.zomato.photofilters.imageprocessors.Filter) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        resetControls()
+        filteredImage = originalImage!!.copy(Bitmap.Config.ARGB_8888, true)
+        image_preview.setImageBitmap(filter.processFilter(filteredImage))
+        finalImage = filteredImage.copy(Bitmap.Config.ARGB_8888, true)
     }
 
     override fun onBrightnessChanged(brightness: Int) {
@@ -35,14 +38,14 @@ class FilterActivity : AppCompatActivity(), FilterListFragmentListener, EditImag
     override fun onSaturationChanged(saturation: Float) {
         saturationFinal = saturation
         val myFilter = Filter()
-        myFilter.addSubFilter(BrightnessSubFilter(saturation))
+        myFilter.addSubFilter(SaturationSubfilter(saturation))
         image_preview.setImageBitmap(myFilter.processFilter(finalImage.copy(Bitmap.Config.ARGB_8888, true)))
     }
 
-    override fun onContrastChanged(constrast: Float) {
-        contrastFinal = constrast
+    override fun onContrastChanged(contrast: Float) {
+        contrastFinal = contrast
         val myFilter = Filter()
-        myFilter.addSubFilter(BrightnessSubFilter(constrast))
+        myFilter.addSubFilter(ContrastSubFilter(contrast))
         image_preview.setImageBitmap(myFilter.processFilter(finalImage.copy(Bitmap.Config.ARGB_8888, true)))
     }
 
@@ -60,14 +63,6 @@ class FilterActivity : AppCompatActivity(), FilterListFragmentListener, EditImag
 
     }
 
-    override fun onFilterSelected(filter: FilterListFragment)
-    {
-        resetControls()
-        filteredImage = originalImage!!.copy(Bitmap.Config.ARGB_8888, true)
-        image_preview.setImageBitmap(filter.processfilter(filteredImage))
-        finalImage = filteredImage.copy(Bitmap.Config.ARGB_8888, true)
-
-    }
 
     private fun resetControls() {
         if(editImageFragment !=null)
