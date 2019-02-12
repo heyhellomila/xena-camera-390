@@ -12,7 +12,7 @@ class NonSwipeableViewPager : ViewPager {
         setMyScroller()
     }
 
-    constructor(context: Context, attributeSet: AttributeSet)  : super(context, attributeSet) {
+    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
         setMyScroller()
     }
 
