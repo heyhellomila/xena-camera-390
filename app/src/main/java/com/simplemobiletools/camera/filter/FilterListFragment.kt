@@ -39,7 +39,7 @@ class FilterListFragment : Fragment(), FilterListFragmentListener {
         this.listener = listFragmentListener
     }
     override fun onFilterSelected(filter: Filter) {
-        if(listener !=null)
+        if (listener != null)
             listener!!.onFilterSelected(filter)
     }
 
