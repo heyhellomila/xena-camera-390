@@ -16,11 +16,11 @@ import java.io.InputStream
 
 object BitmapUtils {
 
-    fun getBitmapFromAssets(context:Context, fileName:String, width:Int, height:Int) : Bitmap? {
+    fun getBitmapFromAssets(context: Context, fileName: String, width: Int, height: Int): Bitmap? {
         val assetManager = context.assets
 
-        val inputStream : InputStream
-        val bitmap:Bitmap?=null
+        val inputStream: InputStream
+        val bitmap: Bitmap? = null
         try {
             val options = BitmapFactory.Options()
             options.inJustDecodeBounds = true
@@ -29,14 +29,13 @@ object BitmapUtils {
             options.inSampleSize = calculateInSampleSize(options, width, height)
             options.inJustDecodeBounds = false
             return BitmapFactory.decodeStream(inputStream, null, options)
-        }
-        catch(e:IOException) {
+        } catch(e: IOException) {
             Log.e("DEBUG", e.message)
         }
         return null
     }
 
-    fun getBitmapFromGallery(context:Context, path:Uri, width:Int, height:Int) : Bitmap {
+    fun getBitmapFromGallery(context: Context, path: Uri, width: Int, height: Int): Bitmap {
         val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
         val cursor = context.contentResolver.query(path, filePathColumn, null, null, null)
         cursor!!.moveToFirst()
@@ -52,7 +51,7 @@ object BitmapUtils {
         return BitmapFactory.decodeFile(picturePath, options)
     }
 
-    fun insertImage(contentResolver:ContentResolver, source:Bitmap?, title:String, description:String) : String? {
+    fun insertImage(contentResolver: ContentResolver, source: Bitmap?, title: String, description: String): String? {
         val values = ContentValues()
         values.put(MediaStore.Images.Media.TITLE, title)
         values.put(MediaStore.Images.Media.DISPLAY_NAME, title)
@@ -61,8 +60,8 @@ object BitmapUtils {
         values.put(MediaStore.Images.Media.DATE_ADDED, System.currentTimeMillis())
         values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis())
 
-        var url:Uri? = null
-        var stringUrl:String? = null
+        var url: Uri? = null
+        var stringUrl: String? = null
         try {
             url = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
             if (source != null) {
@@ -70,21 +69,18 @@ object BitmapUtils {
 
                 try {
                     source.compress(Bitmap.CompressFormat.JPEG, 50, imageOut)
-                }
-                finally {
+                } finally {
                     imageOut!!.close()
                 }
 
                 val id = ContentUris.parseId(url)
                 val miniThumb = MediaStore.Images.Thumbnails.getThumbnail(contentResolver, id, MediaStore.Images.Thumbnails.MINI_KIND, null)
                 storeThumbnail(contentResolver, miniThumb, id, 50f, 50f, MediaStore.Images.Thumbnails.MICRO_KIND)
-            }
-            else {
+            } else {
                 contentResolver.delete(url!!, null, null)
                 url = null
             }
-        }
-        catch (e:Exception) {
+        } catch (e: Exception) {
             if (url != null) {
                 contentResolver.delete(url, null, null)
                 url = null
@@ -98,7 +94,7 @@ object BitmapUtils {
         return stringUrl
     }
 
-    private fun storeThumbnail(contentResolver:ContentResolver, source:Bitmap?, id:Long, width:Float, height:Float, microKind:Int) : Bitmap? {
+    private fun storeThumbnail(contentResolver: ContentResolver, source: Bitmap?, id: Long, width: Float, height: Float, microKind: Int): Bitmap? {
         val matrix = Matrix()
         val scaleX = width/source!!.width
         val scaleY = height/source!!.height
@@ -120,35 +116,28 @@ object BitmapUtils {
             thumbOut!!.close()
             return thumb
         }
-        catch (ex:FileNotFoundException) {
+        catch (ex: FileNotFoundException) {
             return null
             ex.printStackTrace()
         }
-        catch (ex:IOException) {
+        catch (ex: IOException) {
             return null
             ex.printStackTrace()
         }
-
-
     }
 
-
-    private fun calculateInSampleSize(options:BitmapFactory.Options, regWidth:Int, regHeight:Int): Int {
+    private fun calculateInSampleSize(options: BitmapFactory.Options, regWidth: Int, regHeight: Int): Int {
         val height = options.outHeight
         val width = options.outWidth
         var inSampleSize = 1
 
         if ((height > regHeight) || (width > regWidth)) {
-            val halfHeight = height/2
-            val halfWidth = width/2
-            while (((halfHeight/inSampleSize)>= regWidth) && ((halfWidth/inSampleSize)>= regWidth)) {
+            val halfHeight = height / 2
+            val halfWidth = width / 2
+            while (((halfHeight / inSampleSize) >= regWidth) && ((halfWidth / inSampleSize) >= regWidth)) {
                 inSampleSize *= 2
             }
         }
         return inSampleSize
-
-
     }
-
-
 }

@@ -1,6 +1,5 @@
 package com.simplemobiletools.camera.filter
 
-
 import android.os.Bundle
 import android.graphics.Bitmap
 import android.util.TypedValue
@@ -22,7 +21,6 @@ import com.zomato.photofilters.utils.ThumbnailItem
 import com.zomato.photofilters.utils.ThumbnailsManager
 import kotlinx.android.synthetic.main.fragment_filter_list.*
 
-
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -34,7 +32,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class FilterListFragment : Fragment(), FilterListFragmentListener {
 
-    internal var listener : FilterListFragmentListener?=null
+    internal var listener : FilterListFragmentListener? = null
     internal lateinit var adapter: ThumbnailAdapter
     internal lateinit var thumbnailItemList: MutableList<ThumbnailItem>
     fun setListener(listFragmentListener: FilterListFragmentListener)
@@ -50,8 +48,7 @@ class FilterListFragment : Fragment(), FilterListFragmentListener {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_filter_list, container, false)
         thumbnailItemList = ArrayList()
@@ -88,11 +85,11 @@ class FilterListFragment : Fragment(), FilterListFragmentListener {
             thumbnailItem.filterName = "Normal"
             ThumbnailsManager.addThumb(thumbnailItem)
 
-            //add filter pack
+            // add filter pack
 
             val filters = FilterPack.getFilterPack(activity!!)
 
-            for(filter in filters) {
+            for (filter in filters) {
                 val item = ThumbnailItem()
                 item.image = thumbImage
                 item.filterName = filter.name
@@ -100,14 +97,11 @@ class FilterListFragment : Fragment(), FilterListFragmentListener {
             }
 
             thumbnailItemList.addAll(ThumbnailsManager.processThumbs(activity!!))
-            activity!!.runOnUiThread{
+            activity!!.runOnUiThread {
                 adapter.notifyDataSetChanged()
             }
-
         }
 
         Thread(r).start()
     }
-
-
 }

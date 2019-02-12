@@ -12,9 +12,11 @@ import com.simplemobiletools.camera.interfaces.FilterListFragmentListener
 import com.zomato.photofilters.utils.ThumbnailItem
 import kotlinx.android.synthetic.main.thumbnail_list_item.view.*
 
-class ThumbnailAdapter(private val context:Context,
-                       private val thumbnailItemList:List<ThumbnailItem>,
-                       private val listener:FilterListFragmentListener): RecyclerView.Adapter<ThumbnailAdapter.MyViewholder>(){
+class ThumbnailAdapter(
+        private val context: Context,
+        private val thumbnailItemList: List<ThumbnailItem>,
+        private val listener: FilterListFragmentListener
+) : RecyclerView.Adapter<ThumbnailAdapter.MyViewholder>() {
 
     private var selectedIndex = 0
 
@@ -24,7 +26,7 @@ class ThumbnailAdapter(private val context:Context,
     }
 
     override fun getItemCount(): Int {
-       return thumbnailItemList.size
+        return thumbnailItemList.size
     }
 
     override fun onBindViewHolder(holder: MyViewholder, position: Int) {
@@ -34,17 +36,15 @@ class ThumbnailAdapter(private val context:Context,
                 listener.onFilterSelected(thumbnailItem.filter)
                 selectedIndex = position
                 notifyDataSetChanged()
-
             }
     }
 
     class MyViewholder(itemView: View): RecyclerView.ViewHolder(itemView) {
         var thumbNail: ImageView
-        var fileterName: TextView
+        var filterName: TextView
         init{
             thumbNail = itemView.thumbnail
-            fileterName = itemView.filter_name
-
+            filterName = itemView.filter_name
         }
-}
+    }
 }
