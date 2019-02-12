@@ -8,11 +8,11 @@ import androidx.viewpager.widget.ViewPager
 
 class NonSwipeableViewPager : ViewPager {
 
-    constructor(context: Context) : super(context) {
+    constructor(context: Context): super(context) {
         setMyScroller()
     }
 
-    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
+    constructor(context: Context, attributeSet: AttributeSet): super(context, attributeSet) {
         setMyScroller()
     }
 
