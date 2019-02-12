@@ -18,7 +18,6 @@ import com.zomato.photofilters.imageprocessors.subfilters.SaturationSubfilter
 import kotlinx.android.synthetic.main.activity_filter.*
 import kotlinx.android.synthetic.main.content_filter.*
 
-
 class FilterActivity : AppCompatActivity(), FilterListFragmentListener, EditImageFragmentListener {
 
     override fun onFilterSelected(filter: com.zomato.photofilters.imageprocessors.Filter) {
@@ -29,7 +28,7 @@ class FilterActivity : AppCompatActivity(), FilterListFragmentListener, EditImag
     }
 
     override fun onBrightnessChanged(brightness: Int) {
-      brightnessFinal = brightness
+        brightnessFinal = brightness
         val myFilter = Filter()
         myFilter.addSubFilter(BrightnessSubFilter(brightness))
         image_preview.setImageBitmap(myFilter.processFilter(finalImage.copy(Bitmap.Config.ARGB_8888, true)))
@@ -50,7 +49,6 @@ class FilterActivity : AppCompatActivity(), FilterListFragmentListener, EditImag
     }
 
     override fun onEditStarted() {
-
     }
 
     override fun onEditCompleted() {
@@ -60,12 +58,10 @@ class FilterActivity : AppCompatActivity(), FilterListFragmentListener, EditImag
         myFilter.addSubFilter(SaturationSubfilter(saturationFinal))
         myFilter.addSubFilter(BrightnessSubFilter(brightnessFinal))
         finalImage = myFilter.processFilter(bitmap)
-
     }
 
-
     private fun resetControls() {
-        if(editImageFragment !=null)
+        if (editImageFragment != null)
             editImageFragment.resetControls()
 
         brightnessFinal = 0
@@ -73,9 +69,9 @@ class FilterActivity : AppCompatActivity(), FilterListFragmentListener, EditImag
         contrastFinal = 1.0f
     }
 
-    internal var originalImage: Bitmap?=null
-    internal lateinit var filteredImage:Bitmap
-    internal lateinit var finalImage:Bitmap
+    internal var originalImage: Bitmap? = null
+    internal lateinit var filteredImage: Bitmap
+    internal lateinit var finalImage: Bitmap
 
     internal lateinit var filterListFragment: FilterListFragment
     internal lateinit var editImageFragment: EditImageFragment
@@ -83,7 +79,6 @@ class FilterActivity : AppCompatActivity(), FilterListFragmentListener, EditImag
     internal var brightnessFinal = 0
     internal var saturationFinal = 1.0f
     internal var contrastFinal = 1.0f
-
 
     object Filter {
         val IMAGE_NAME = "flash.jpg"
@@ -93,11 +88,11 @@ class FilterActivity : AppCompatActivity(), FilterListFragmentListener, EditImag
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_filter)
 
-        //Set Toolbar
+        // Set Toolbar
 
         setSupportActionBar(toolBar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.title="XENA Filter"
+        supportActionBar!!.title = "XENA Filter"
 
         loadImage()
         setUpViewPager(viewPager)
@@ -126,6 +121,4 @@ class FilterActivity : AppCompatActivity(), FilterListFragmentListener, EditImag
         filteredImage = originalImage!!.copy(Bitmap.Config.ARGB_8888, true)
         finalImage = originalImage!!.copy(Bitmap.Config.ARGB_8888, true)
     }
-
-
 }

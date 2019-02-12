@@ -1,6 +1,5 @@
 package com.simplemobiletools.camera.filter
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,42 +10,32 @@ import com.simplemobiletools.camera.interfaces.EditImageFragmentListener
 import com.simplemobiletools.camera.R
 import kotlinx.android.synthetic.main.fragment_edit_image.*
 
-
 /**
  * A simple [Fragment] subclass.
  *
  */
 class EditImageFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
 
-    private var listener: EditImageFragmentListener?=null
+    private var listener: EditImageFragmentListener? = null
 
-    fun resetControls()
-    {
+    fun resetControls() {
         seekbar_brightness.progress = 100
         seekbar_contrast.progress = 0
         seekbar_saturation.progress = 10
     }
 
     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-       var progress = progress
-        if (listener !=null)
-        {
-            if(seekBar!!.id == R.id.seekbar_brightness)
-            {
-                listener!!.onBrightnessChanged(progress-100)
-            }
-
-            else if(seekBar!!.id == R.id.seekbar_contrast)
-            {
+        var progress = progress
+        if (listener != null) {
+            if (seekBar!!.id == R.id.seekbar_brightness) {
+                listener!!.onBrightnessChanged(progress - 100)
+            } else if (seekBar!!.id == R.id.seekbar_contrast) {
                 progress += 10
-                val floatVal = .10f*progress
+                val floatVal = .10f * progress
                 listener!!.onContrastChanged(floatVal)
-            }
-
-            else if(seekBar!!.id == R.id.seekbar_saturation)
-            {
-                progress +=10
-                val floatVal = .10f*progress
+            } else if (seekBar!!.id == R.id.seekbar_saturation) {
+                progress += 10
+                val floatVal = .10f * progress
                 listener!!.onSaturationChanged(floatVal)
             }
         }
@@ -62,9 +51,7 @@ class EditImageFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
             listener!!.onEditCompleted()
     }
 
-
-    fun setListener(listener: EditImageFragmentListener)
-    {
+    fun setListener(listener: EditImageFragmentListener) {
         this.listener = listener
     }
 
@@ -72,8 +59,7 @@ class EditImageFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view = inflater.inflate(R.layout.fragment_edit_image, container, false)
 
@@ -92,6 +78,4 @@ class EditImageFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
 
         return view
     }
-
-
 }

@@ -36,7 +36,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     private lateinit var mFadeHandler: Handler
     private lateinit var mCameraImpl: MyCameraImpl
 
-    private var mPreview: MyPreview? = null /// ???? Unresolved reference
+    private var mPreview: MyPreview? = null // Unresolved reference
     private var mPreviewUri: Uri? = null
     private var mIsInPhotoMode = false
     private var mIsCameraAvailable = false
