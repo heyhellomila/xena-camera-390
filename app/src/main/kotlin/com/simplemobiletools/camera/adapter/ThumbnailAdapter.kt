@@ -13,9 +13,15 @@ import com.zomato.photofilters.utils.ThumbnailItem
 import kotlinx.android.synthetic.main.thumbnail_list_item.view.*
 
 class ThumbnailAdapter(
+<<<<<<< HEAD
     private val context: Context,
     private val thumbnailItemList: List<ThumbnailItem>,
     private val listener: FilterListFragmentListener
+=======
+        private val context: Context,
+        private val thumbnailItemList: List<ThumbnailItem>,
+        private val listener: FilterListFragmentListener
+>>>>>>> f492d52d5beb9f7411c618f910d25d6ef53168b3
 ) : RecyclerView.Adapter<ThumbnailAdapter.MyViewholder>() {
 
     private var selectedIndex = 0
@@ -42,7 +48,11 @@ class ThumbnailAdapter(
     class MyViewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var thumbNail: ImageView
         var filterName: TextView
+<<<<<<< HEAD
         init {
+=======
+        init{
+>>>>>>> f492d52d5beb9f7411c618f910d25d6ef53168b3
             thumbNail = itemView.thumbnail
             filterName = itemView.filter_name
         }
