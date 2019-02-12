@@ -6,14 +6,13 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.Scroller
 import androidx.viewpager.widget.ViewPager
 
+class NonSwipeableViewPager : ViewPager {
 
-class NonSwipeableViewPager: ViewPager {
-
-    constructor(context: Context):super(context) {
+    constructor(context: Context): super(context) {
         setMyScroller()
     }
 
-    constructor(context: Context, attributeSet: AttributeSet):super(context, attributeSet) {
+    constructor(context: Context, attributeSet: AttributeSet): super(context, attributeSet) {
         setMyScroller()
     }
 
@@ -31,17 +30,10 @@ class NonSwipeableViewPager: ViewPager {
             val scroller = viewPager.getDeclaredField("mScroller")
             scroller.isAccessible = true
             scroller.set(this, MyScroller(context))
-
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-        catch (e:Exception) {
-           e.printStackTrace()
-        }
-
     }
-
-
-
-
 }
 
 class MyScroller(context: Context) : Scroller(context, DecelerateInterpolator()) {
