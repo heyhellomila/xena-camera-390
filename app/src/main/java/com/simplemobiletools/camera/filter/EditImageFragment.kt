@@ -63,7 +63,7 @@ class EditImageFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
     }
 
 
-    fun setListener(listener: EditImageImageFragmentListener)
+    fun setListener(listener: EditImageFragmentListener)
     {
         this.listener = listener
     }

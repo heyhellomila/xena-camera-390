@@ -35,17 +35,17 @@ class FilterActivity : AppCompatActivity(), FilterListFragmentListener, EditImag
         image_preview.setImageBitmap(myFilter.processFilter(finalImage.copy(Bitmap.Config.ARGB_8888, true)))
     }
 
-    override fun onSaturationChanged(saturation: Float) {
-        saturationFinal = saturation
+    override fun onSaturationChanged(saturation: Int) {
+        saturationFinal = saturation.toFloat()
         val myFilter = Filter()
-        myFilter.addSubFilter(SaturationSubfilter(saturation))
+        myFilter.addSubFilter(SaturationSubfilter(saturation.toFloat()))
         image_preview.setImageBitmap(myFilter.processFilter(finalImage.copy(Bitmap.Config.ARGB_8888, true)))
     }
 
-    override fun onContrastChanged(contrast: Float) {
-        contrastFinal = contrast
+    override fun onContrastChanged(contrast: Int) {
+        contrastFinal = contrast.toFloat()
         val myFilter = Filter()
-        myFilter.addSubFilter(ContrastSubFilter(contrast))
+        myFilter.addSubFilter(ContrastSubFilter(contrast.toFloat()))
         image_preview.setImageBitmap(myFilter.processFilter(finalImage.copy(Bitmap.Config.ARGB_8888, true)))
     }
 
