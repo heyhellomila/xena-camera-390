@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
 import android.view.* // ktlint-disable no-wildcard-imports
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -25,6 +26,7 @@ import com.simplemobiletools.camera.views.FocusCircleView
 import com.simplemobiletools.commons.extensions.* // ktlint-disable no-wildcard-imports
 import com.simplemobiletools.commons.helpers.* // ktlint-disable no-wildcard-imports
 import com.simplemobiletools.commons.models.Release
+import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
@@ -43,6 +45,9 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     private var mIsVideoCaptureIntent = false
     private var mIsHardwareShutterHandled = false
     private var mCurrVideoRecTimer = 0
+
+    private var mFilterToggle = false
+
     var mLastHandledOrientation = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +57,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         useDynamicTheme = false
+        mFilterToggle = false
         super.onCreate(savedInstanceState)
         appLaunched(BuildConfig.APPLICATION_ID)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -146,6 +152,8 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         toggle_photo_video.beGone()
         settings.beGone()
         last_photo_video_preview.beGone()
+        filterToggle.beGone()
+        filter_holder.beGone()
     }
 
     private fun tryInitCamera() {
@@ -221,7 +229,24 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         shutter.setOnClickListener { shutterPressed() }
         settings.setOnClickListener { launchSettings() }
         toggle_photo_video.setOnClickListener { handleTogglePhotoVideo() }
+        filterToggle.setOnClickListener { openFilterOptions() }
         change_resolution.setOnClickListener { mPreview?.showChangeResolutionDialog() }
+    }
+
+    private fun openFilterOptions(){
+        if(mFilterToggle == false){
+            filter_holder.visibility = View.VISIBLE
+//            fadeAnim(toggle_grayScale_filter, 1f)
+//            fadeAnim(toggle_sepia_filter, 1f)
+//            fadeAnim(toggle_monoChrome_filter, 1f)
+            mFilterToggle = true
+        }else{
+           filter_holder.visibility = View.INVISIBLE
+//            fadeAnim(toggle_grayScale_filter, .0f)
+//            fadeAnim(toggle_sepia_filter, .0f)
+//            fadeAnim(toggle_monoChrome_filter, .0f)
+            mFilterToggle = false
+        }
     }
 
     private fun toggleCamera() {
@@ -395,6 +420,11 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         fadeAnim(toggle_photo_video, .0f)
         fadeAnim(change_resolution, .0f)
         fadeAnim(last_photo_video_preview, .0f)
+        fadeAnim(filterToggle, .0f)
+//        fadeAnim(toggle_grayScale_filter, .0f)
+//        fadeAnim(toggle_sepia_filter, .0f)
+//        fadeAnim(toggle_monoChrome_filter, .0f)
+
     }
 
     private fun fadeInButtons() {
@@ -402,6 +432,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         fadeAnim(toggle_photo_video, 1f)
         fadeAnim(change_resolution, 1f)
         fadeAnim(last_photo_video_preview, 1f)
+        fadeAnim(filterToggle, 1f)
         scheduleFadeOut()
     }
 

@@ -38,12 +38,53 @@
         android:src="@drawable/ic_resolution"/>
 
     <ImageView
-        android:id="@+id/last_photo_video_preview"
+        android:id="@+id/filterToggle"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
         android:layout_below="@+id/change_resolution"
         android:layout_alignParentRight="true"
+        android:padding="@dimen/medium_margin"
+        android:src="@drawable/filter"/>
+
+    <ImageView
+        android:id="@+id/last_photo_video_preview"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        android:layout_below="@+id/filterToggle"
+        android:layout_alignParentRight="true"
         android:padding="@dimen/medium_margin"/>
+
+    <LinearLayout
+        android:id="@+id/filter_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btn_holder"
+        android:gravity="center_horizontal|bottom"
+        android:visibility="invisible">
+
+        <ImageView
+            android:id="@+id/toggle_grayScale_filter"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:layout_weight="1"
+            android:padding="@dimen/normal_margin"
+            android:src="@drawable/blackwhitefilter"/>
+
+        <ImageView
+            android:id="@+id/toggle_sepia_filter"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:layout_weight="1"
+            android:src="@drawable/sepiafilter"/>
+
+        <ImageView
+            android:id="@+id/toggle_monoChrome_filter"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:layout_weight="1"
+            android:padding="@dimen/normal_margin"
+            android:src="@drawable/monofilter"/>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/btn_holder"
