@@ -35,7 +35,6 @@ class FilterTest {
 
         // initialisation for this test
         filterActivity.filteredImage = image
-        `when`(filter.processFilter(image)).thenReturn(image)
         `when`(image.copy(Bitmap.Config.ARGB_8888, true)).thenReturn(image)
         doReturn(filter).`when`(filterActivity).createFilter()
         `when`(filter.processFilter(ArgumentMatchers.any())).thenReturn(image)
