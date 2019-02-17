@@ -8,7 +8,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers
 import org.mockito.Mock
-import org.mockito.Mockito.*
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.doReturn
+import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 import org.mockito.Spy
 import org.mockito.junit.MockitoJUnitRunner
@@ -17,13 +19,13 @@ import org.mockito.junit.MockitoJUnitRunner
 class FilterTest {
 
     @Spy
-    lateinit var filterActivity : FilterActivity
+    lateinit var filterActivity: FilterActivity
 
     @Mock
-    lateinit var image : Bitmap
+    lateinit var image: Bitmap
 
     @Mock
-    lateinit var filter : Filter
+    lateinit var filter: Filter
 
     @Before
     fun initiateFilter() {
@@ -31,7 +33,7 @@ class FilterTest {
     }
 
     @Test
-    fun testOnEditCompleted(){
+    fun testOnEditCompleted() {
 
         // initialisation for this test
         filterActivity.filteredImage = image
@@ -45,5 +47,4 @@ class FilterTest {
         // Assertions and/or verifications
         verify(filterActivity).onEditCompleted()
     }
-
 }

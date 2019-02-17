@@ -60,10 +60,9 @@ open class FilterActivity : AppCompatActivity(), FilterListFragmentListener, Edi
         finalImage = myFilter.processFilter(bitmap)
     }
 
-    fun createFilter(): com.zomato.photofilters.imageprocessors.Filter{
+    fun createFilter(): com.zomato.photofilters.imageprocessors.Filter {
         return Filter()
     }
-
 
     private fun resetControls() {
         if (editImageFragment != null)
