@@ -90,6 +90,11 @@
             android:parentActivityName="com.simplemobiletools.commons.activities.AboutActivity"/>
 
         <activity
+            android:name=".activities.EffectsFilterActivity"
+            android:label="Filters"
+            android:parentActivityName=".activities.MainActivity"/>
+
+        <activity
             android:name=".activities.SettingsActivity"
             android:label="@string/settings"
             android:parentActivityName=".activities.MainActivity"/>

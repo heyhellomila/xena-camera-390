@@ -234,9 +234,16 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     }
 
     private fun openFilterOptions(){
+
+        val intent = Intent(applicationContext, EffectsFilterActivity::class.java)
+        startActivity(intent)
+
+        // You can set CONTROL_EFFECT_MODE like this:
+        // mPreview.set(CaptureRequest.CONTROL_EFFECT_MODE, CaptureRequest.CONTROL_EFFECT_MODE_SEPIA);
+/*
         if(mFilterToggle == false){
             filter_holder.visibility = View.VISIBLE
-//            fadeAnim(toggle_grayScale_filter, 1f)
+            fadeAnim(toggle_grayScale_filter, 1f)
 //            fadeAnim(toggle_sepia_filter, 1f)
 //            fadeAnim(toggle_monoChrome_filter, 1f)
             mFilterToggle = true
@@ -246,7 +253,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
 //            fadeAnim(toggle_sepia_filter, .0f)
 //            fadeAnim(toggle_monoChrome_filter, .0f)
             mFilterToggle = false
-        }
+        }*/
     }
 
     private fun toggleCamera() {
