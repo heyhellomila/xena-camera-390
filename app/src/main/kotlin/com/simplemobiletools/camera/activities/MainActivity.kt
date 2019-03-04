@@ -235,7 +235,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
 
     private fun openFilterOptions(){
 
-        val intent = Intent(applicationContext, EffectsFilterActivity::class.java)
+        var intent = Intent(applicationContext, EffectsFilterActivity::class.java)
         startActivity(intent)
 
         // You can set CONTROL_EFFECT_MODE like this:

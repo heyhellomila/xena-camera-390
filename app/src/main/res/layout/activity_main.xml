@@ -44,7 +44,8 @@
         android:layout_below="@+id/change_resolution"
         android:layout_alignParentRight="true"
         android:padding="@dimen/medium_margin"
-        android:src="@drawable/filter"/>
+        android:src="@drawable/filter"
+        android:onClick="openFilterOptions"/>
 
     <ImageView
         android:id="@+id/last_photo_video_preview"

@@ -48,7 +48,7 @@ class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
         mCurrentEffect = effect
     }
 
-    override fun onCreate(savedInstanceState: Bundle) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //		requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_effectsfilter)
@@ -68,7 +68,7 @@ class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
         GLES20.glGenTextures(2, mTextures, 0)
 
         // Load input bitmap
-        val bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.duck)
+        val bitmap = BitmapFactory.decodeResource(resources, R.drawable.duck)
         mImageWidth = bitmap.width
         mImageHeight = bitmap.height
         mTexRenderer.updateTextureSize(mImageWidth, mImageHeight)
@@ -82,7 +82,7 @@ class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
     }
 
     private fun initEffect() {
-        val effectFactory = mEffectContext!!.getFactory()
+        val effectFactory = mEffectContext!!.factory
         if (mEffect != null) {
             mEffect!!.release()
         }
