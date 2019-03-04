@@ -601,6 +601,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
     }
 
     override fun onKeywordDetected() {
+        mPreview?.tryTakePicture()
         Log.i("Recognition","keyword detected !!!")
         // textView.text = "Keyword detected"
         System.out.println("Keyword detected")
