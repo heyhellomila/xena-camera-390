@@ -18,7 +18,7 @@ import com.zomato.photofilters.imageprocessors.subfilters.SaturationSubfilter
 import kotlinx.android.synthetic.main.activity_filter.*
 import kotlinx.android.synthetic.main.content_filter.*
 
-class FilterActivity : AppCompatActivity(), FilterListFragmentListener, EditImageFragmentListener {
+open class FilterActivity : AppCompatActivity(), FilterListFragmentListener, EditImageFragmentListener {
 
     override fun onFilterSelected(filter: com.zomato.photofilters.imageprocessors.Filter) {
         resetControls()
@@ -53,11 +53,15 @@ class FilterActivity : AppCompatActivity(), FilterListFragmentListener, EditImag
 
     override fun onEditCompleted() {
         val bitmap = filteredImage.copy(Bitmap.Config.ARGB_8888, true)
-        val myFilter = Filter()
+        val myFilter = createFilter()
         myFilter.addSubFilter(ContrastSubFilter(contrastFinal))
         myFilter.addSubFilter(SaturationSubfilter(saturationFinal))
         myFilter.addSubFilter(BrightnessSubFilter(brightnessFinal))
         finalImage = myFilter.processFilter(bitmap)
+    }
+
+    fun createFilter(): com.zomato.photofilters.imageprocessors.Filter {
+        return Filter()
     }
 
     private fun resetControls() {
