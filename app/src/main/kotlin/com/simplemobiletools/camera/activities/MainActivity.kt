@@ -1,7 +1,9 @@
 package com.simplemobiletools.camera.activities
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.hardware.SensorManager
 import android.net.Uri
 import android.os.Bundle
@@ -9,10 +11,12 @@ import android.os.Handler
 import android.provider.MediaStore
 import android.view.* // ktlint-disable no-wildcard-imports
 import android.widget.RelativeLayout
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+import com.github.stephenvinouze.core.managers.KontinuousRecognitionManager
 import com.simplemobiletools.camera.BuildConfig
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.config
@@ -35,6 +39,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     private lateinit var mFocusCircleView: FocusCircleView
     private lateinit var mFadeHandler: Handler
     private lateinit var mCameraImpl: MyCameraImpl
+    private lateinit var recognitionManager: KontinuousRecognitionManager
 
     private var mPreview: MyPreview? = null // Unresolved reference
     private var mPreviewUri: Uri? = null
@@ -44,6 +49,13 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     private var mIsHardwareShutterHandled = false
     private var mCurrVideoRecTimer = 0
     var mLastHandledOrientation = 0
+
+    companion object {
+        /**
+         * Put any keyword that will trigger the speech recognition
+         */
+        private const val ACTIVATION_KEYWORD = "Camera Activate"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
@@ -61,6 +73,8 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         supportActionBar?.hide()
         checkWhatsNewDialog()
         setupOrientationEventListener()
+
+        recognitionManager = KontinuousRecognitionManager(this, activationKeyword = ACTIVATION_KEYWORD, callback = this)
     }
 
     override fun onResume() {
@@ -82,9 +96,14 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         if (hasStorageAndCameraPermissions()) {
             mOrientationEventListener.enable()
         }
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
+            recognitionManager.startRecognition()
+        }
     }
 
     override fun onPause() {
+        recognitionManager.stopRecognition()
         super.onPause()
         window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         if (!hasStorageAndCameraPermissions() || isAskingPermissions) {
@@ -103,6 +122,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     }
 
     override fun onDestroy() {
+        recognitionManager.destroyRecognizer()
         super.onDestroy()
         mPreview = null
     }
