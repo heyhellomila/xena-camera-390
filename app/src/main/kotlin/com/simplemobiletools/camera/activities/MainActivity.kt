@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
+import android.util.Log
 import android.view.* // ktlint-disable no-wildcard-imports
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
@@ -16,7 +17,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+import com.github.stephenvinouze.core.interfaces.RecognitionCallback
 import com.github.stephenvinouze.core.managers.KontinuousRecognitionManager
+import com.github.stephenvinouze.core.models.RecognitionStatus
 import com.simplemobiletools.camera.BuildConfig
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.config
@@ -31,7 +34,7 @@ import com.simplemobiletools.commons.helpers.* // ktlint-disable no-wildcard-imp
 import com.simplemobiletools.commons.models.Release
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
+class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, RecognitionCallback {
     private val FADE_DELAY = 5000L
 
     lateinit var mTimerHandler: Handler
@@ -74,7 +77,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         checkWhatsNewDialog()
         setupOrientationEventListener()
 
-        recognitionManager = KontinuousRecognitionManager(this, activationKeyword = ACTIVATION_KEYWORD)
+        recognitionManager = KontinuousRecognitionManager(this, activationKeyword = ACTIVATION_KEYWORD, callback = this)
     }
 
     override fun onResume() {
@@ -583,4 +586,59 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
             checkWhatsNew(this, BuildConfig.VERSION_CODE)
         }
     }
+
+    override fun onPrepared(status: RecognitionStatus) {
+        when (status) {
+            RecognitionStatus.SUCCESS -> {
+                Log.i("Recognition","onPrepared: Success")
+                // textView.text = "Recognition ready"
+            }
+        }
+    }
+
+    override fun onBeginningOfSpeech() {
+        Log.i("Recognition","onBeginningOfSpeech")
+    }
+
+    override fun onKeywordDetected() {
+        Log.i("Recognition","keyword detected !!!")
+        // textView.text = "Keyword detected"
+        System.out.println("Keyword detected")
+    }
+
+    override fun onReadyForSpeech(params: Bundle) {
+        Log.i("Recognition","onReadyForSpeech")
+    }
+
+    override fun onBufferReceived(buffer: ByteArray) {
+        Log.i("Recognition", "onBufferReceived: $buffer")
+    }
+
+    override fun onRmsChanged(rmsdB: Float) {
+       // progressBar.progress = rmsdB.toInt()
+    }
+
+    override fun onPartialResults(results: List<String>) {}
+
+    override fun onResults(results: List<String>, scores: FloatArray?) {
+        val text = results.joinToString(separator = "\n")
+        Log.i("Recognition","onResults : $text")
+        // textView.text = text
+        System.out.println(text)
+    }
+
+    override fun onError(errorCode: Int) {
+        // val errorMessage = getErrorText(errorCode)
+        // Log.i("Recognition","onError: $errorMessage")
+        // textView.text = errorMessage
+    }
+
+    override fun onEvent(eventType: Int, params: Bundle) {
+        Log.i("Recognition","onEvent")
+    }
+
+    override fun onEndOfSpeech() {
+        Log.i("Recognition","onEndOfSpeech")
+    }
+
 }
