@@ -39,7 +39,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     private lateinit var mFocusCircleView: FocusCircleView
     private lateinit var mFadeHandler: Handler
     private lateinit var mCameraImpl: MyCameraImpl
-    private lateinit var recognitionManager: KontinuousRecognitionManager
+    private lateinit var recognitionManager: KontinuousRecognitionManager // Using open source voice recognition from Stephen Vinouze
 
     private var mPreview: MyPreview? = null // Unresolved reference
     private var mPreviewUri: Uri? = null
