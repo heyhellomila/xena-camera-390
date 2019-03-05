@@ -51,6 +51,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
     private var mIsVideoCaptureIntent = false
     private var mIsHardwareShutterHandled = false
     private var mCurrVideoRecTimer = 0
+    var mToggleVoice = true
     var mLastHandledOrientation = 0
 
     companion object {
@@ -100,13 +101,10 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
             mOrientationEventListener.enable()
         }
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
-            recognitionManager.startRecognition()
-        }
+
     }
 
     override fun onPause() {
-        recognitionManager.stopRecognition()
         super.onPause()
         window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         if (!hasStorageAndCameraPermissions() || isAskingPermissions) {
@@ -245,6 +243,23 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         settings.setOnClickListener { launchSettings() }
         toggle_photo_video.setOnClickListener { handleTogglePhotoVideo() }
         change_resolution.setOnClickListener { mPreview?.showChangeResolutionDialog() }
+        toggle_voice.setOnClickListener{ toggleVoice()}
+
+    }
+
+    private fun toggleVoice(){
+        if(mToggleVoice) {
+            recognitionManager = KontinuousRecognitionManager(this, activationKeyword = ACTIVATION_KEYWORD, callback = this)
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
+                recognitionManager.startRecognition()
+            }
+            mToggleVoice = false
+            shutter.setImageResource(R.drawable.microphonebottom)
+        }else{
+            recognitionManager.cancelRecognition()
+            mToggleVoice = true
+            shutter.setImageResource(R.drawable.ic_shutter)
+        }
     }
 
     private fun toggleCamera() {
