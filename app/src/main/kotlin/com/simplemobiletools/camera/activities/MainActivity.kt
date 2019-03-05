@@ -663,4 +663,3 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         Log.i("Recognition", "onEndOfSpeech")
     }
 }
-
