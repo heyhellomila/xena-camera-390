@@ -78,7 +78,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         checkWhatsNewDialog()
         setupOrientationEventListener()
 
-        recognitionManager = KontinuousRecognitionManager(this, activationKeyword = ACTIVATION_KEYWORD, callback = this)
+        //recognitionManager = KontinuousRecognitionManager(this, activationKeyword = ACTIVATION_KEYWORD, callback = this)
     }
 
     override fun onResume() {
