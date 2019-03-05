@@ -254,11 +254,14 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
                 recognitionManager.startRecognition()
             }
             mToggleVoice = false
+            toggle_voice.setImageResource(R.drawable.microphone_active)
             shutter.setImageResource(R.drawable.microphonebottom)
         }else{
             recognitionManager.cancelRecognition()
             mToggleVoice = true
+            toggle_voice.setImageResource(R.drawable.microphone)
             shutter.setImageResource(R.drawable.ic_shutter)
+            fadeInButtons()
         }
     }
 
@@ -433,6 +436,9 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         fadeAnim(toggle_photo_video, .0f)
         fadeAnim(change_resolution, .0f)
         fadeAnim(last_photo_video_preview, .0f)
+        if(mToggleVoice){
+            fadeAnim(toggle_voice, .0f)
+        }
     }
 
     private fun fadeInButtons() {
@@ -440,6 +446,9 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         fadeAnim(toggle_photo_video, 1f)
         fadeAnim(change_resolution, 1f)
         fadeAnim(last_photo_video_preview, 1f)
+        if(mToggleVoice){
+            fadeAnim(toggle_voice, 1f)
+        }
         scheduleFadeOut()
     }
 
