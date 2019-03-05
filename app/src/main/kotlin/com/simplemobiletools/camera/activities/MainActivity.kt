@@ -635,7 +635,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
     }
 
     override fun onRmsChanged(rmsdB: Float) {
-        // progressBar.progress = rmsdB.toInt()
     }
 
     override fun onPartialResults(results: List<String>) {}
@@ -648,9 +647,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
     }
 
     override fun onError(errorCode: Int) {
-        // val errorMessage = getErrorText(errorCode)
-        // Log.i("Recognition","onError: $errorMessage")
-        // textView.text = errorMessage
     }
 
     override fun onEvent(eventType: Int, params: Bundle) {
