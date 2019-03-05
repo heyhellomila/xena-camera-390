@@ -77,7 +77,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         supportActionBar?.hide()
         checkWhatsNewDialog()
         setupOrientationEventListener()
-
     }
 
     override fun onResume() {
@@ -99,8 +98,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         if (hasStorageAndCameraPermissions()) {
             mOrientationEventListener.enable()
         }
-
-
     }
 
     override fun onPause() {
@@ -242,12 +239,11 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         settings.setOnClickListener { launchSettings() }
         toggle_photo_video.setOnClickListener { handleTogglePhotoVideo() }
         change_resolution.setOnClickListener { mPreview?.showChangeResolutionDialog() }
-        toggle_voice.setOnClickListener{ toggleVoice()}
-
+        toggle_voice.setOnClickListener { toggleVoice() }
     }
 
-    private fun toggleVoice(){
-        if(mToggleVoice) {
+    private fun toggleVoice() {
+        if (mToggleVoice) {
             recognitionManager = KontinuousRecognitionManager(this, activationKeyword = ACTIVATION_KEYWORD, callback = this)
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
                 recognitionManager.startRecognition()
@@ -255,7 +251,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
             mToggleVoice = false
             toggle_voice.setImageResource(R.drawable.microphone_active)
             shutter.setImageResource(R.drawable.microphonebottom)
-        }else{
+        } else {
             recognitionManager.cancelRecognition()
             mToggleVoice = true
             toggle_voice.setImageResource(R.drawable.microphone)
@@ -435,7 +431,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         fadeAnim(toggle_photo_video, .0f)
         fadeAnim(change_resolution, .0f)
         fadeAnim(last_photo_video_preview, .0f)
-        if(mToggleVoice){
+        if (mToggleVoice) {
             fadeAnim(toggle_voice, .0f)
         }
     }
@@ -445,7 +441,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         fadeAnim(toggle_photo_video, 1f)
         fadeAnim(change_resolution, 1f)
         fadeAnim(last_photo_video_preview, 1f)
-        if(mToggleVoice){
+        if (mToggleVoice) {
             fadeAnim(toggle_voice, 1f)
         }
         scheduleFadeOut()
@@ -613,25 +609,25 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
     override fun onPrepared(status: RecognitionStatus) {
         when (status) {
             RecognitionStatus.SUCCESS -> {
-                Log.i("Recognition","onPrepared: Success")
+                Log.i("Recognition", "onPrepared: Success")
                 // textView.text = "Recognition ready"
             }
         }
     }
 
     override fun onBeginningOfSpeech() {
-        Log.i("Recognition","onBeginningOfSpeech")
+        Log.i("Recognition", "onBeginningOfSpeech")
     }
 
     override fun onKeywordDetected() {
         mPreview?.tryTakePicture()
-        Log.i("Recognition","keyword detected !!!")
+        Log.i("Recognition", "keyword detected !!!")
         // textView.text = "Keyword detected"
         System.out.println("Keyword detected")
     }
 
     override fun onReadyForSpeech(params: Bundle) {
-        Log.i("Recognition","onReadyForSpeech")
+        Log.i("Recognition", "onReadyForSpeech")
     }
 
     override fun onBufferReceived(buffer: ByteArray) {
@@ -639,14 +635,14 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
     }
 
     override fun onRmsChanged(rmsdB: Float) {
-       // progressBar.progress = rmsdB.toInt()
+        // progressBar.progress = rmsdB.toInt()
     }
 
     override fun onPartialResults(results: List<String>) {}
 
     override fun onResults(results: List<String>, scores: FloatArray?) {
         val text = results.joinToString(separator = "\n")
-        Log.i("Recognition","onResults : $text")
+        Log.i("Recognition", "onResults : $text")
         // textView.text = text
         System.out.println(text)
     }
@@ -658,11 +654,10 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
     }
 
     override fun onEvent(eventType: Int, params: Bundle) {
-        Log.i("Recognition","onEvent")
+        Log.i("Recognition", "onEvent")
     }
 
     override fun onEndOfSpeech() {
-        Log.i("Recognition","onEndOfSpeech")
+        Log.i("Recognition", "onEndOfSpeech")
     }
-
 }
