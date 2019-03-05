@@ -244,9 +244,9 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         toggle_voice.setOnClickListener { toggleVoice() }
     }
 
-    private fun toggleVoice(){
+    private fun toggleVoice() {
         if (mToggleVoice) {
-            recognitionManager = KontinuousRecognitionManager (this, activationKeyword = ACTIVATION_KEYWORD, callback = this )
+            recognitionManager = KontinuousRecognitionManager(this, activationKeyword = ACTIVATION_KEYWORD, callback = this)
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
                 recognitionManager.startRecognition()
             }
@@ -633,7 +633,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
     }
 
     override fun onBufferReceived(buffer: ByteArray) {
-        Log.i("Recognition",  "onBufferReceived: $buffer")
+        Log.i("Recognition", "onBufferReceived: $buffer")
     }
 
     override fun onRmsChanged(rmsdB: Float) {
@@ -663,3 +663,4 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         Log.i("Recognition", "onEndOfSpeech")
     }
 }
+
