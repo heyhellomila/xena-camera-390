@@ -242,8 +242,8 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         toggle_voice.setOnClickListener { toggleVoice() }
     }
 
-    private fun toggleVoice() {
-        if (mToggleVoice) {
+    private fun toggleVoice() {//this function will toggle the voice activation function
+        if (mToggleVoice) {//if the voice recognition is not active, then turn it on
             recognitionManager = KontinuousRecognitionManager(this, activationKeyword = ACTIVATION_KEYWORD, callback = this)
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
                 recognitionManager.startRecognition()
@@ -251,7 +251,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
             mToggleVoice = false
             toggle_voice.setImageResource(R.drawable.microphone_active)
             shutter.setImageResource(R.drawable.microphonebottom)
-        } else {
+        } else {//if the voice recognition is active, then turn it off
             recognitionManager.cancelRecognition()
             mToggleVoice = true
             toggle_voice.setImageResource(R.drawable.microphone)
