@@ -45,6 +45,15 @@
         android:layout_alignParentRight="true"
         android:padding="@dimen/medium_margin"/>
 
+    <ImageView
+        android:id="@+id/toggle_voice"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        android:layout_below="@+id/last_photo_video_preview"
+        android:layout_alignParentRight="true"
+        android:padding="@dimen/medium_margin"
+        android:src="@drawable/microphone"/>
+
     <LinearLayout
         android:id="@+id/btn_holder"
         android:layout_width="match_parent"
