@@ -9,7 +9,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.rule.GrantPermissionRule
-import androidx.test.runner.AndroidJUnit4
 import com.simplemobiletools.camera.R
 import org.hamcrest.Description
 import org.hamcrest.Matcher
@@ -17,10 +16,8 @@ import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 
 @LargeTest
-@RunWith(AndroidJUnit4::class)
 class VideoTest {
 
     @Rule
@@ -35,11 +32,13 @@ class VideoTest {
                     "android.permission.RECORD_AUDIO",
                     "android.permission.WRITE_EXTERNAL_STORAGE")
 
+    //This test assumes that the camera is currently in photo mode as it switches to video mode.
     @Test
     fun videoTest() {
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(7000)
 
+        //press settings
         val appCompatImageView = onView(
                 allOf(withId(R.id.settings),
                         childAtPosition(
@@ -54,6 +53,7 @@ class VideoTest {
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(2000)
 
+        //press to toggle video mode
         val appCompatImageView2 = onView(
                 allOf(withId(R.id.toggle_photo_video),
                         childAtPosition(
@@ -66,8 +66,9 @@ class VideoTest {
         appCompatImageView2.perform(click())
 
         // Added a sleep statement to match the app's execution delay.
-        Thread.sleep(10000)
+        Thread.sleep(7000)
 
+        //begin record
         val appCompatImageView3 = onView(
                 allOf(withId(R.id.shutter),
                         childAtPosition(
@@ -79,9 +80,10 @@ class VideoTest {
                         isDisplayed()))
         appCompatImageView3.perform(click())
 
-        // Added a sleep statement to match the app's execution delay.
+        // Added a sleep statement to let camera record
         Thread.sleep(3000)
 
+        //end recording
         val appCompatImageView4 = onView(
                 allOf(withId(R.id.shutter),
                         childAtPosition(
@@ -92,6 +94,36 @@ class VideoTest {
                                 1),
                         isDisplayed()))
         appCompatImageView4.perform(click())
+
+        // Added a sleep statement to match the app's execution delay.
+        Thread.sleep(7000)
+
+        //open settings
+        val appCompatImageView6 = onView(
+                allOf(withId(R.id.settings),
+                        childAtPosition(
+                                allOf(withId(R.id.view_holder),
+                                        childAtPosition(
+                                                withId(android.R.id.content),
+                                                0)),
+                                1),
+                        isDisplayed()))
+        appCompatImageView6.perform(click())
+
+        // Added a sleep statement to match the app's execution delay.
+        Thread.sleep(2000)
+
+        //toggle photo mode back on
+        val appCompatImageView7 = onView(
+                allOf(withId(R.id.toggle_photo_video),
+                        childAtPosition(
+                                allOf(withId(R.id.view_holder),
+                                        childAtPosition(
+                                                withId(android.R.id.content),
+                                                0)),
+                                2),
+                        isDisplayed()))
+        appCompatImageView7.perform(click())
     }
 
     private fun childAtPosition(parentMatcher: Matcher<View>, position: Int): Matcher<View> {

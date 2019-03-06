@@ -9,7 +9,6 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.rule.GrantPermissionRule
-import androidx.test.runner.AndroidJUnit4
 import com.simplemobiletools.camera.R
 import org.hamcrest.Description
 import org.hamcrest.Matcher
@@ -17,10 +16,8 @@ import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 
 @LargeTest
-@RunWith(AndroidJUnit4::class)
 class SettingsTest {
 
     @Rule
@@ -39,6 +36,7 @@ class SettingsTest {
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(7000)
 
+        //open settings
         val appCompatImageView = onView(
                 allOf(withId(R.id.settings),
                         childAtPosition(
@@ -53,6 +51,7 @@ class SettingsTest {
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(2000)
 
+        //view settings
         val appCompatImageView2 = onView(
                 allOf(withId(R.id.settings),
                         childAtPosition(
@@ -65,21 +64,9 @@ class SettingsTest {
         appCompatImageView2.perform(click())
 
         // Added a sleep statement to match the app's execution delay.
-        Thread.sleep(10000)
-
-        val relativeLayout = onView(
-                allOf(withId(R.id.settings_keep_settings_visible_holder),
-                        childAtPosition(
-                                allOf(withId(R.id.settings_holder),
-                                        childAtPosition(
-                                                withId(R.id.settings_scrollview),
-                                                0)),
-                                4)))
-        relativeLayout.perform(scrollTo(), click())
-
-        // Added a sleep statement to match the app's execution delay.
         Thread.sleep(7000)
 
+        //toggle a setting to ensure UI is reactive
         val relativeLayout2 = onView(
                 allOf(withId(R.id.settings_turn_flash_off_at_startup_holder),
                         childAtPosition(
@@ -93,6 +80,7 @@ class SettingsTest {
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(2000)
 
+        //Save the settings
         val actionMenuItemView = onView(
                 allOf(withId(R.id.action_save), withText("SAVE"),
                         childAtPosition(
@@ -106,6 +94,7 @@ class SettingsTest {
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(2000)
 
+        //Return to camera preview
         val appCompatImageButton = onView(
                 allOf(withContentDescription("Navigate up"),
                         childAtPosition(
