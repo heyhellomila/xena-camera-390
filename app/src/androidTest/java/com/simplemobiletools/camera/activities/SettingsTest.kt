@@ -1,6 +1,5 @@
 package com.simplemobiletools.camera.activities
 
-
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
@@ -94,7 +93,6 @@ class SettingsTest {
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(2000)
 
-
         val actionMenuItemView = onView(
                 allOf(withId(R.id.action_save), withText("SAVE"),
                         childAtPosition(
@@ -120,19 +118,15 @@ class SettingsTest {
         appCompatImageButton.perform(click())
     }
 
-    private fun childAtPosition(
-            parentMatcher: Matcher<View>, position: Int): Matcher<View> {
-
+    private fun childAtPosition(parentMatcher: Matcher<View>, position: Int): Matcher<View> {
         return object : TypeSafeMatcher<View>() {
             override fun describeTo(description: Description) {
                 description.appendText("Child at position $position in parent ")
                 parentMatcher.describeTo(description)
             }
-
             public override fun matchesSafely(view: View): Boolean {
                 val parent = view.parent
-                return parent is ViewGroup && parentMatcher.matches(parent)
-                        && view == parent.getChildAt(position)
+                return parent is ViewGroup && parentMatcher.matches(parent) && view == parent.getChildAt(position)
             }
         }
     }
