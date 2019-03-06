@@ -22,7 +22,7 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class VideoActivity {
+class VideoTest {
 
     @Rule
     @JvmField
@@ -37,11 +37,9 @@ class VideoActivity {
                     "android.permission.WRITE_EXTERNAL_STORAGE")
 
     @Test
-    fun videoActivity() {
+    fun videoTest() {
         // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        Thread.sleep(5000)
+        Thread.sleep(7000)
 
         val appCompatImageView = onView(
                 allOf(withId(R.id.settings),
@@ -55,9 +53,7 @@ class VideoActivity {
         appCompatImageView.perform(click())
 
         // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        Thread.sleep(5000)
+        Thread.sleep(2000)
 
         val appCompatImageView2 = onView(
                 allOf(withId(R.id.toggle_photo_video),
@@ -71,9 +67,7 @@ class VideoActivity {
         appCompatImageView2.perform(click())
 
         // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        Thread.sleep(5000)
+        Thread.sleep(10000)
 
         val appCompatImageView3 = onView(
                 allOf(withId(R.id.shutter),
@@ -87,9 +81,7 @@ class VideoActivity {
         appCompatImageView3.perform(click())
 
         // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        Thread.sleep(1000)
+        Thread.sleep(3000)
 
         val appCompatImageView4 = onView(
                 allOf(withId(R.id.shutter),
