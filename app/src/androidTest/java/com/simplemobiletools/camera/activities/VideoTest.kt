@@ -32,13 +32,13 @@ class VideoTest {
                     "android.permission.RECORD_AUDIO",
                     "android.permission.WRITE_EXTERNAL_STORAGE")
 
-    //This test assumes that the camera is currently in photo mode as it switches to video mode.
+    // This test assumes that the camera is currently in photo mode as it switches to video mode.
     @Test
     fun videoTest() {
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(7000)
 
-        //press settings
+        // press settings
         val appCompatImageView = onView(
                 allOf(withId(R.id.settings),
                         childAtPosition(
@@ -53,7 +53,7 @@ class VideoTest {
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(2000)
 
-        //press to toggle video mode
+        // press to toggle video mode
         val appCompatImageView2 = onView(
                 allOf(withId(R.id.toggle_photo_video),
                         childAtPosition(
@@ -68,7 +68,7 @@ class VideoTest {
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(7000)
 
-        //begin record
+        // begin record
         val appCompatImageView3 = onView(
                 allOf(withId(R.id.shutter),
                         childAtPosition(
@@ -83,7 +83,7 @@ class VideoTest {
         // Added a sleep statement to let camera record
         Thread.sleep(3000)
 
-        //end recording
+        // end recording
         val appCompatImageView4 = onView(
                 allOf(withId(R.id.shutter),
                         childAtPosition(
@@ -98,7 +98,7 @@ class VideoTest {
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(7000)
 
-        //open settings
+        // open settings
         val appCompatImageView6 = onView(
                 allOf(withId(R.id.settings),
                         childAtPosition(
@@ -113,7 +113,7 @@ class VideoTest {
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(2000)
 
-        //toggle photo mode back on
+        // toggle photo mode back on
         val appCompatImageView7 = onView(
                 allOf(withId(R.id.toggle_photo_video),
                         childAtPosition(

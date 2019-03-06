@@ -5,7 +5,10 @@ import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.scrollTo
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.rule.GrantPermissionRule
@@ -36,7 +39,7 @@ class SettingsTest {
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(7000)
 
-        //open settings
+        // open settings
         val appCompatImageView = onView(
                 allOf(withId(R.id.settings),
                         childAtPosition(
@@ -51,7 +54,7 @@ class SettingsTest {
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(2000)
 
-        //view settings
+        // view settings
         val appCompatImageView2 = onView(
                 allOf(withId(R.id.settings),
                         childAtPosition(
@@ -66,7 +69,7 @@ class SettingsTest {
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(7000)
 
-        //toggle a setting to ensure UI is reactive
+        // toggle a setting to ensure UI is reactive
         val relativeLayout2 = onView(
                 allOf(withId(R.id.settings_turn_flash_off_at_startup_holder),
                         childAtPosition(
@@ -80,7 +83,7 @@ class SettingsTest {
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(2000)
 
-        //Save the settings
+        // Save the settings
         val actionMenuItemView = onView(
                 allOf(withId(R.id.action_save), withText("SAVE"),
                         childAtPosition(
@@ -94,7 +97,7 @@ class SettingsTest {
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(2000)
 
-        //Return to camera preview
+        // Return to camera preview
         val appCompatImageButton = onView(
                 allOf(withContentDescription("Navigate up"),
                         childAtPosition(
