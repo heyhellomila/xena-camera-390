@@ -1,6 +1,5 @@
 package com.simplemobiletools.camera.activities
 
-
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
@@ -191,8 +190,7 @@ class PictureTest {
         appCompatImageView12.perform(click())
     }
 
-    private fun childAtPosition(
-            parentMatcher: Matcher<View>, position: Int): Matcher<View> {
+    private fun childAtPosition(parentMatcher: Matcher<View>, position: Int): Matcher<View> {
 
         return object : TypeSafeMatcher<View>() {
             override fun describeTo(description: Description) {
@@ -202,8 +200,7 @@ class PictureTest {
 
             public override fun matchesSafely(view: View): Boolean {
                 val parent = view.parent
-                return parent is ViewGroup && parentMatcher.matches(parent)
-                        && view == parent.getChildAt(position)
+                return parent is ViewGroup && parentMatcher.matches(parent) && view == parent.getChildAt(position)
             }
         }
     }
