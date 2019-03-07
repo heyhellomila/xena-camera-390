@@ -29,6 +29,10 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
+import android.widget.Button
+import android.widget.PopupMenu
+import kotlinx.android.synthetic.main.activity_effectsfilter.view.*
 
 class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
 
@@ -43,6 +47,7 @@ class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
     internal var mCurrentEffect: Int = 0
     // @Volatile
     private var saveFrame: Boolean = false
+    private var effectsButton: Button = findViewById(R.id.openeffects)
 
     fun setCurrentEffect(effect: Int) {
         mCurrentEffect = effect
@@ -61,6 +66,30 @@ class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
         mEffectView!!.setRenderer(this)
         mEffectView!!.renderMode = GLSurfaceView.RENDERMODE_WHEN_DIRTY
         mCurrentEffect = R.id.none
+
+
+        /*val clickListener = View.OnClickListener { view ->
+            when (view.id) {
+                R.id.openeffects -> {
+                    showPopup(view)
+                }
+            }
+        }
+        effectsButton.setOnClickListener(clickListener)*/
+
+    }
+
+    fun showPopUp(view: View) {
+        val popupMenu = PopupMenu(this, view)
+        val inflater = popupMenu.menuInflater
+        inflater.inflate(R.menu.effectsfilter, popupMenu.menu)
+        popupMenu.show()
+
+        popupMenu.setOnMenuItemClickListener { item: MenuItem ->
+            setCurrentEffect(item.itemId)
+            mEffectView!!.requestRender()
+true
+        }
     }
 
     private fun loadTextures() {
@@ -277,6 +306,7 @@ class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
     override fun onSurfaceCreated(gl: GL10, config: EGLConfig) {
     }
 
+/*
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.effectsfilter, menu)
@@ -288,4 +318,6 @@ class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
         mEffectView!!.requestRender()
         return true
     }
+*/
+
 }
