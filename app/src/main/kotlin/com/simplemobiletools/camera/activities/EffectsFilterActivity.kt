@@ -30,9 +30,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.PopupMenu
-import kotlinx.android.synthetic.main.activity_effectsfilter.view.*
 
 class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
 
@@ -47,7 +45,6 @@ class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
     internal var mCurrentEffect: Int = 0
     // @Volatile
     private var saveFrame: Boolean = false
-    private var effectsButton: Button = findViewById(R.id.openeffects)
 
     fun setCurrentEffect(effect: Int) {
         mCurrentEffect = effect
@@ -66,17 +63,6 @@ class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
         mEffectView!!.setRenderer(this)
         mEffectView!!.renderMode = GLSurfaceView.RENDERMODE_WHEN_DIRTY
         mCurrentEffect = R.id.none
-
-
-        /*val clickListener = View.OnClickListener { view ->
-            when (view.id) {
-                R.id.openeffects -> {
-                    showPopup(view)
-                }
-            }
-        }
-        effectsButton.setOnClickListener(clickListener)*/
-
     }
 
     fun showPopUp(view: View) {
@@ -88,7 +74,7 @@ class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
         popupMenu.setOnMenuItemClickListener { item: MenuItem ->
             setCurrentEffect(item.itemId)
             mEffectView!!.requestRender()
-true
+            true
         }
     }
 
@@ -318,6 +304,5 @@ true
         mEffectView!!.requestRender()
         return true
     }
-*/
-
+ */
 }
