@@ -292,7 +292,7 @@ class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
     override fun onSurfaceCreated(gl: GL10, config: EGLConfig) {
     }
 
-/*
+    /*
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.effectsfilter, menu)
@@ -304,5 +304,6 @@ class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
         mEffectView!!.requestRender()
         return true
     }
- */
+    */
+
 }
