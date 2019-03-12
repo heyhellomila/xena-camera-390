@@ -79,8 +79,6 @@ class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
         }
     }
 
-    fun saveImage() {}
-
     fun returnToCamera() {
         val intent = Intent(applicationContext, MainActivity::class.java)
         startActivity(intent)

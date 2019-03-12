@@ -46,8 +46,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     private var mIsHardwareShutterHandled = false
     private var mCurrVideoRecTimer = 0
 
-    private var mFilterToggle = false
-
     var mLastHandledOrientation = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +55,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         useDynamicTheme = false
-        mFilterToggle = false
         super.onCreate(savedInstanceState)
         appLaunched(BuildConfig.APPLICATION_ID)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -153,7 +150,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         settings.beGone()
         last_photo_video_preview.beGone()
         filterToggle.beGone()
-        filter_holder.beGone()
     }
 
     private fun tryInitCamera() {
@@ -234,26 +230,8 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     }
 
     private fun openFilterOptions(){
-
         var intent = Intent(applicationContext, EffectsFilterActivity::class.java)
         startActivity(intent)
-
-        // You can set CONTROL_EFFECT_MODE like this:
-        // mPreview.set(CaptureRequest.CONTROL_EFFECT_MODE, CaptureRequest.CONTROL_EFFECT_MODE_SEPIA);
-/*
-        if(mFilterToggle == false){
-            filter_holder.visibility = View.VISIBLE
-            fadeAnim(toggle_grayScale_filter, 1f)
-//            fadeAnim(toggle_sepia_filter, 1f)
-//            fadeAnim(toggle_monoChrome_filter, 1f)
-            mFilterToggle = true
-        }else{
-           filter_holder.visibility = View.INVISIBLE
-//            fadeAnim(toggle_grayScale_filter, .0f)
-//            fadeAnim(toggle_sepia_filter, .0f)
-//            fadeAnim(toggle_monoChrome_filter, .0f)
-            mFilterToggle = false
-        }*/
     }
 
     private fun toggleCamera() {
