@@ -1,21 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@android:color/black">
 
     <android.opengl.GLSurfaceView
         android:id="@+id/effectsview"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.9"/>
+        android:layout_height="match_parent"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/openeffects"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_weight="0.1"
-        android:text="Open Filters"
-        android:onClick="showPopUp"/>
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:background="@color/transparent"
+        android:clickable="true"
+        android:onClick="showPopUp"
+        android:padding="@dimen/medium_margin"
+        android:scaleType="fitCenter"
+        android:src="@drawable/filter"
+        android:visibility="visible" />
 
-</LinearLayout>
+    <ImageButton
+        android:id="@+id/saveeffects"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_below="@+id/openeffects"
+        android:layout_alignParentEnd="true"
+        android:background="@color/transparent"
+        android:clickable="true"
+        android:onClick="saveImage"
+        android:padding="@dimen/medium_margin"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_save"
+        android:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/camerareturn"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_below="@+id/saveeffects"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="-6dp"
+        android:background="@color/transparent"
+        android:clickable="true"
+        android:onClick="returnToCamera"
+        android:padding="@dimen/medium_margin"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_camera"
+        android:visibility="visible" />
+
+
+</RelativeLayout>

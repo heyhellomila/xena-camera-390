@@ -13,6 +13,7 @@ import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
 
 import android.app.Activity
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
@@ -76,6 +77,13 @@ class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
             mEffectView!!.requestRender()
             true
         }
+    }
+
+    fun saveImage() {}
+
+    fun returnToCamera() {
+        val intent = Intent(applicationContext, MainActivity::class.java)
+        startActivity(intent)
     }
 
     private fun loadTextures() {
@@ -291,6 +299,8 @@ class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
 
     override fun onSurfaceCreated(gl: GL10, config: EGLConfig) {
     }
+
+
 
     /*
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
