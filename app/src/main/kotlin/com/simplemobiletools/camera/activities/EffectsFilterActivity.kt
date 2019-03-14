@@ -27,11 +27,10 @@ import android.opengl.GLUtils
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.PopupMenu
+// import kotlinx.android.synthetic.main.activity_effectsfilter.*
 
 class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
 
@@ -46,6 +45,7 @@ class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
     internal var mCurrentEffect: Int = 0
     // @Volatile
     private var saveFrame: Boolean = false
+    var mPhotoByteArrayFromMain: ByteArray? = null
 
     fun setCurrentEffect(effect: Int) {
         mCurrentEffect = effect
@@ -64,6 +64,15 @@ class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
         mEffectView!!.setRenderer(this)
         mEffectView!!.renderMode = GLSurfaceView.RENDERMODE_WHEN_DIRTY
         mCurrentEffect = R.id.none
+        mPhotoByteArrayFromMain = intent.getByteArrayExtra("photoBitmap")
+    }
+
+    override fun onPause() {
+        super.onPause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 
     fun showPopUp(view: View) {
@@ -88,8 +97,19 @@ class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
         // Generate textures
         GLES20.glGenTextures(2, mTextures, 0)
 
-        // Load input bitmap
-        val bitmap = BitmapFactory.decodeResource(resources, R.drawable.duck)
+        // Load input bitmap. this variable will determine the image the filters are used on
+        var bmp: Bitmap?
+        if (mPhotoByteArrayFromMain != null) {
+            //if a photo was actually taken, import it from the intent and convert it to a bitmap
+            val byteArray: ByteArray = intent.getByteArrayExtra("photoBitmap")
+            bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+        }
+        else {
+            //else import the default image of donald duck
+            bmp = BitmapFactory.decodeResource(resources, R.drawable.duck)
+        }
+
+        val bitmap = bmp
         mImageWidth = bitmap.width
         mImageHeight = bitmap.height
         mTexRenderer.updateTextureSize(mImageWidth, mImageHeight)
