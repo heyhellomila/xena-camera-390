@@ -1,18 +1,25 @@
 package com.simplemobiletools.camera.activities
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.hardware.SensorManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
+import android.util.Log
 import android.view.* // ktlint-disable no-wildcard-imports
 import android.widget.RelativeLayout
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+import com.github.stephenvinouze.core.interfaces.RecognitionCallback
+import com.github.stephenvinouze.core.managers.KontinuousRecognitionManager
+import com.github.stephenvinouze.core.models.RecognitionStatus
 import com.simplemobiletools.camera.BuildConfig
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.config
@@ -27,7 +34,7 @@ import com.simplemobiletools.commons.helpers.* // ktlint-disable no-wildcard-imp
 import com.simplemobiletools.commons.models.Release
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
+class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, RecognitionCallback {
     private val FADE_DELAY = 5000L
 
     lateinit var mTimerHandler: Handler
@@ -35,6 +42,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     private lateinit var mFocusCircleView: FocusCircleView
     private lateinit var mFadeHandler: Handler
     private lateinit var mCameraImpl: MyCameraImpl
+    private lateinit var recognitionManager: KontinuousRecognitionManager // Using open source voice recognition from Stephen Vinouze
 
     private var mPreview: MyPreview? = null // Unresolved reference
     private var mPreviewUri: Uri? = null
@@ -43,7 +51,15 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     private var mIsVideoCaptureIntent = false
     private var mIsHardwareShutterHandled = false
     private var mCurrVideoRecTimer = 0
+    var mToggleVoice = true
     var mLastHandledOrientation = 0
+
+    companion object {
+        /**
+         * Put any keyword that will trigger the speech recognition
+         */
+        private const val ACTIVATION_KEYWORD = "Camera Activate"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
@@ -103,6 +119,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     }
 
     override fun onDestroy() {
+        recognitionManager.destroyRecognizer()
         super.onDestroy()
         mPreview = null
     }
@@ -222,6 +239,25 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         settings.setOnClickListener { launchSettings() }
         toggle_photo_video.setOnClickListener { handleTogglePhotoVideo() }
         change_resolution.setOnClickListener { mPreview?.showChangeResolutionDialog() }
+        toggle_voice.setOnClickListener { toggleVoice() }
+    }
+
+    private fun toggleVoice() { // this function will toggle the voice activation function
+        if (mToggleVoice) { // if the voice recognition is not active, then turn it on
+            recognitionManager = KontinuousRecognitionManager(this, activationKeyword = ACTIVATION_KEYWORD, callback = this)
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
+                recognitionManager.startRecognition()
+            }
+            mToggleVoice = false
+            toggle_voice.setImageResource(R.drawable.microphone_active)
+            shutter.setImageResource(R.drawable.microphonebottom)
+        } else { // if the voice recognition is active, then turn it off
+            recognitionManager.cancelRecognition()
+            mToggleVoice = true
+            toggle_voice.setImageResource(R.drawable.microphone)
+            shutter.setImageResource(R.drawable.ic_shutter)
+            fadeInButtons()
+        }
     }
 
     private fun toggleCamera() {
@@ -395,6 +431,9 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         fadeAnim(toggle_photo_video, .0f)
         fadeAnim(change_resolution, .0f)
         fadeAnim(last_photo_video_preview, .0f)
+        if (mToggleVoice) {
+            fadeAnim(toggle_voice, .0f)
+        }
     }
 
     private fun fadeInButtons() {
@@ -402,6 +441,9 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         fadeAnim(toggle_photo_video, 1f)
         fadeAnim(change_resolution, 1f)
         fadeAnim(last_photo_video_preview, 1f)
+        if (mToggleVoice) {
+            fadeAnim(toggle_voice, 1f)
+        }
         scheduleFadeOut()
     }
 
@@ -562,5 +604,56 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
             add(Release(52, R.string.release_52))
             checkWhatsNew(this, BuildConfig.VERSION_CODE)
         }
+    }
+
+    override fun onPrepared(status: RecognitionStatus) {
+        when (status) {
+            RecognitionStatus.SUCCESS -> {
+                Log.i("Recognition", "onPrepared: Success")
+                // textView.text = "Recognition ready"
+            }
+        }
+    }
+
+    override fun onBeginningOfSpeech() {
+        Log.i("Recognition", "onBeginningOfSpeech")
+    }
+
+    override fun onKeywordDetected() {
+        mPreview?.tryTakePicture()
+        Log.i("Recognition", "keyword detected !!!")
+        // textView.text = "Keyword detected"
+        System.out.println("Keyword detected")
+    }
+
+    override fun onReadyForSpeech(params: Bundle) {
+        Log.i("Recognition", "onReadyForSpeech")
+    }
+
+    override fun onBufferReceived(buffer: ByteArray) {
+        Log.i("Recognition", "onBufferReceived: $buffer")
+    }
+
+    override fun onRmsChanged(rmsdB: Float) {
+    }
+
+    override fun onPartialResults(results: List<String>) {}
+
+    override fun onResults(results: List<String>, scores: FloatArray?) {
+        val text = results.joinToString(separator = "\n")
+        Log.i("Recognition", "onResults : $text")
+        // textView.text = text
+        System.out.println(text)
+    }
+
+    override fun onError(errorCode: Int) {
+    }
+
+    override fun onEvent(eventType: Int, params: Bundle) {
+        Log.i("Recognition", "onEvent")
+    }
+
+    override fun onEndOfSpeech() {
+        Log.i("Recognition", "onEndOfSpeech")
     }
 }
