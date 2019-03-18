@@ -1,6 +1,5 @@
 package com.simplemobiletools.camera.helpers
 
-
 import android.opengl.GLES20
 
 object GLToolbox {
@@ -23,8 +22,7 @@ object GLToolbox {
         return shader
     }
 
-    fun createProgram(vertexSource: String,
-                      fragmentSource: String): Int {
+    fun createProgram(vertexSource: String, fragmentSource: String): Int {
         val vertexShader = loadShader(GLES20.GL_VERTEX_SHADER, vertexSource)
         if (vertexShader == 0) {
             return 0
@@ -71,5 +69,4 @@ object GLToolbox {
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T,
                 GLES20.GL_CLAMP_TO_EDGE)
     }
-
 }

@@ -3,19 +3,15 @@ package com.simplemobiletools.camera.activities
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.helpers.TextureRenderer
 import com.simplemobiletools.camera.helpers.GLToolbox
-
 import java.io.File
 import java.io.FileOutputStream
 import java.nio.IntBuffer
 import java.util.Random
-
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
-
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.media.effect.Effect
@@ -42,7 +38,6 @@ class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
     private var mImageHeight: Int = 0
     private var mInitialized = false
     internal var mCurrentEffect: Int = 0
-    // @Volatile
     private var saveFrame: Boolean = false
     var mPhotoByteArrayFromMain: ByteArray? = null
 
@@ -52,7 +47,6 @@ class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //		requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_effectsfilter)
         /**
          * Initialise the renderer and tell it to only render when Explicit
@@ -91,12 +85,10 @@ class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
         // Load input bitmap. this variable will determine the image the filters are used on
         var bmp: Bitmap?
         if (mPhotoByteArrayFromMain != null) {
-            //if a photo was actually taken, import it from the intent and convert it to a bitmap
+            // if a photo was actually taken, import it from the intent and convert it to a bitmap
             val byteArray: ByteArray = intent.getByteArrayExtra("photoBitmap")
             bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
-        }
-        else {
-            //else import the default image of donald duck
+        } else { // else import the default image of donald duck
             bmp = BitmapFactory.decodeResource(resources, R.drawable.duck)
         }
 
@@ -277,7 +269,6 @@ class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
     }
 
     fun takeScreenshot(mGL: GL10): Bitmap {
@@ -308,21 +299,4 @@ class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
 
     override fun onSurfaceCreated(gl: GL10, config: EGLConfig) {
     }
-
-
-
-    /*
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.effectsfilter, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        setCurrentEffect(item.itemId)
-        mEffectView!!.requestRender()
-        return true
-    }
-    */
-
 }

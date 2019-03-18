@@ -1,7 +1,6 @@
 package com.simplemobiletools.camera.activities
 
 import android.app.Activity
-import android.content.ContentResolver
 import android.content.Intent
 import android.graphics.Bitmap
 import android.hardware.SensorManager
@@ -10,7 +9,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
 import android.view.* // ktlint-disable no-wildcard-imports
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -28,15 +26,11 @@ import com.simplemobiletools.camera.views.FocusCircleView
 import com.simplemobiletools.commons.extensions.* // ktlint-disable no-wildcard-imports
 import com.simplemobiletools.commons.helpers.* // ktlint-disable no-wildcard-imports
 import com.simplemobiletools.commons.models.Release
-import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_main.*
-import android.R.attr.bitmap
 import java.io.ByteArrayOutputStream
-
 
 class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     private val FADE_DELAY = 5000L
-
     lateinit var mTimerHandler: Handler
     private lateinit var mOrientationEventListener: OrientationEventListener
     private lateinit var mFocusCircleView: FocusCircleView
@@ -185,7 +179,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
             if (output != null && output is Uri) {
                 mPreview?.setTargetUri(output)
 
-                //convert the photo to a bitMap and assign it to the activity attribute mfilterBitmap
+                // convert the photo to a bitMap and assign it to the activity attribute mfilterBitmap
                 mfilterBitmap = MediaStore.Images.Media.getBitmap(applicationContext.getContentResolver(), output /*MediaStore.Images.Media.EXTERNAL_CONTENT_URI*/)
 
                 /*
@@ -253,18 +247,16 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     private fun openFilterOptions(){
         var intent = Intent(applicationContext, EffectsFilterActivity::class.java)
 
-        //if a photo has beeen taken, convert the bitmap into a byteArray
+        // if a photo has beeen taken, convert the bitmap into a byteArray
         if (mfilterBitmap != null) {
             val bStream = ByteArrayOutputStream()
             val bitmapCopy = mfilterBitmap
             bitmapCopy!!.compress(Bitmap.CompressFormat.JPEG, 100, bStream)
             val byteArray = bStream.toByteArray()
-
-            //add the photo byteArray to the intent
+            // add the photo byteArray to the intent
             intent.putExtra("photoBitmap", byteArray)
         }
-
-        //start EffectsFilterActivity
+        // start EffectsFilterActivity
         startActivity(intent)
     }
 
@@ -440,10 +432,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         fadeAnim(change_resolution, .0f)
         fadeAnim(last_photo_video_preview, .0f)
         fadeAnim(filterToggle, .0f)
-//        fadeAnim(toggle_grayScale_filter, .0f)
-//        fadeAnim(toggle_sepia_filter, .0f)
-//        fadeAnim(toggle_monoChrome_filter, .0f)
-
     }
 
     private fun fadeInButtons() {
