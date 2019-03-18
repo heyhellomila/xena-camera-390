@@ -244,7 +244,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         change_resolution.setOnClickListener { mPreview?.showChangeResolutionDialog() }
     }
 
-    private fun openFilterOptions(){
+    private fun openFilterOptions() {
         var intent = Intent(applicationContext, EffectsFilterActivity::class.java)
 
         // if a photo has beeen taken, convert the bitmap into a byteArray
