@@ -41,14 +41,28 @@ android {
         checkReleaseBuilds false
         abortOnError false
     }
+
+    testOptions {
+        unitTests.includeAndroidResources = true
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
     implementation 'com.simplemobiletools:commons:5.1.4'
 
-    //standard Junit and mockito
+    implementation 'com.android.support:recyclerview-v7:28.1.1'
+    implementation 'com.android.support:design:28.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation "com.google.android.material:material:1.0.0"
+    implementation 'com.karumi:dexter:4.1.0'
+    implementation 'info.androidhive:imagefilters:1.0.7'
+    implementation "com.github.StephenVinouze:KontinuousSpeechRecognizer:1.0.3"
+
+    //Testing
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.8.9'
+    testImplementation 'androidx.test:core:1.0.0'
 }
 
 Properties props = new Properties()

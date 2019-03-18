@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="filter_label_normal">#8a8889</color>
+    <color name="filter_label_selected">#221F20</color>
+    <color name="color_option_menu">#5B1AFF</color>
 
     <color name="transparent">#00ffffff</color>
 </resources>
