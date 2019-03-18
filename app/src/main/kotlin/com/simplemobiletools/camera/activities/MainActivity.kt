@@ -150,6 +150,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         settings.beGone()
         last_photo_video_preview.beGone()
         filterToggle.beGone()
+        toggle_voice.beGone()
     }
 
     private fun tryInitCamera() {
@@ -432,6 +433,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         fadeAnim(change_resolution, .0f)
         fadeAnim(last_photo_video_preview, .0f)
         fadeAnim(filterToggle, .0f)
+        fadeAnim(toggle_voice, .0f)
     }
 
     private fun fadeInButtons() {
@@ -440,6 +442,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         fadeAnim(change_resolution, 1f)
         fadeAnim(last_photo_video_preview, 1f)
         fadeAnim(filterToggle, 1f)
+        fadeAnim(toggle_voice, 1f)
         scheduleFadeOut()
     }
 
