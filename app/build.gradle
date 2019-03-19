@@ -111,10 +111,9 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
             '**/*$ViewInjector*.*',
             '**/BuildConfig.*',
             '**/Manifest*.*',
-            '**/*Test*.*',
             'android/**/*.*',
             '**/*Fragment.*',
-            '**/*Activity.*'
+            //'**/*Activity.*'
     ]
     // generated classes
     classDirectories = fileTree(
