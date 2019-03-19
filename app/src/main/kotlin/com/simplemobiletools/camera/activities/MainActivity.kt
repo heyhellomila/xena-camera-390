@@ -63,7 +63,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         private const val ACTIVATION_KEYWORD = "Camera Activate"
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
@@ -691,5 +690,4 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
     override fun onEndOfSpeech() {
         Log.i("Recognition", "onEndOfSpeech")
     }
-
 }
