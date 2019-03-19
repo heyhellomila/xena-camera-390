@@ -40,7 +40,7 @@ class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
     private var mInitialized = false
     internal var mCurrentEffect: Int = 0
     private var saveFrame: Boolean = false
-    var mPhotoByteArrayFromMain: ByteArray? = null
+    private var mPhotoByteArrayFromMain: ByteArray? = null
 
     fun setCurrentEffect(effect: Int) {
         mCurrentEffect = effect
