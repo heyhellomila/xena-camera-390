@@ -75,7 +75,7 @@ class VideoTest {
                                 allOf(withId(R.id.btn_holder),
                                         childAtPosition(
                                                 withId(R.id.view_holder),
-                                                5)),
+                                                7)),
                                 1),
                         isDisplayed()))
         appCompatImageView3.perform(click())
@@ -90,7 +90,7 @@ class VideoTest {
                                 allOf(withId(R.id.btn_holder),
                                         childAtPosition(
                                                 withId(R.id.view_holder),
-                                                5)),
+                                                7)),
                                 1),
                         isDisplayed()))
         appCompatImageView4.perform(click())
