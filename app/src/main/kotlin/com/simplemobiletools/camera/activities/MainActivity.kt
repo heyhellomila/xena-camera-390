@@ -122,7 +122,9 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
 
     override fun onDestroy() {
         super.onDestroy()
-        recognitionManager.destroyRecognizer()
+        if (::recognitionManager.isInitialized) {
+            recognitionManager.destroyRecognizer()
+        }
         mPreview = null
     }
 
