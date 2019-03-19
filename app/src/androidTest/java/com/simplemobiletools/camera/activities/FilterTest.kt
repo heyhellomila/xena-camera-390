@@ -47,8 +47,8 @@ class FilterTest {
                         isDisplayed()))
         appCompatImageView.perform(click())
 
-        // Added a sleep statement to match the app's execution delay.
-        Thread.sleep(5000)
+        // Wait for settings to open.
+        Thread.sleep(2000)
 
         val appCompatImageView2 = onView(
                 allOf(withId(R.id.filterToggle),
@@ -61,7 +61,8 @@ class FilterTest {
                         isDisplayed()))
         appCompatImageView2.perform(click())
 
-        // Need to add something here to open sample picture and access filters
+        // Wait for filter UI to open.
+        Thread.sleep(2000)
 
         val imageButton = onView(
                 allOf(withId(R.id.openeffects),
@@ -73,11 +74,11 @@ class FilterTest {
                         isDisplayed()))
         imageButton.perform(click())
 
-        // Added a sleep statement to account for button delay.
+        // Wait for filter menu to open.
         Thread.sleep(2000)
 
         val textView = onView(
-                allOf(withId(android.R.id.title), withText("grayscale"),
+                allOf(withId(android.R.id.title), withText("documentary"),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(`is`("com.android.internal.view.menu.ListMenuItemView")),
@@ -85,6 +86,9 @@ class FilterTest {
                                 0),
                         isDisplayed()))
         textView.perform(click())
+
+        // Filter is applied to sample picture.
+        Thread.sleep(5000)
     }
 
     private fun childAtPosition(parentMatcher: Matcher<View>, position: Int): Matcher<View> {

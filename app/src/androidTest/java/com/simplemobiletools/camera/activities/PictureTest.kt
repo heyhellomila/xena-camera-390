@@ -183,8 +183,8 @@ class PictureTest {
                         isDisplayed()))
         appCompatImageView10.perform(click())
 
-        // Added a sleep statement to match the app's execution delay.
-        Thread.sleep(5000)
+        // Added a sleep statement to account for button delay.
+        Thread.sleep(2000)
 
         // Open last photo/video preview using front camera
         val appCompatImageView11 = onView(
