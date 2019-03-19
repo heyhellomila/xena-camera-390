@@ -2,7 +2,6 @@ package com.simplemobiletools.camera.testing
 
 import com.simplemobiletools.camera.activities.EffectsFilterActivity
 import org.junit.Test
-import org.mockito.Mockito.`when` as _when
 
 // Useful link to mockito using kotlin
 // https://antonioleiva.com/unit-tests-android-kotlin/
