@@ -4,4 +4,5 @@
     <color name="filter_label_selected">#221F20</color>
     <color name="color_option_menu">#5B1AFF</color>
 
+    <color name="transparent">#00ffffff</color>
 </resources>
