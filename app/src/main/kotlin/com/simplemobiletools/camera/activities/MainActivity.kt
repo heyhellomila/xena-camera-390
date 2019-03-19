@@ -1,21 +1,26 @@
 package com.simplemobiletools.camera.activities
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.hardware.SensorManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
+import android.util.Log
 import android.view.* // ktlint-disable no-wildcard-imports
 import android.widget.RelativeLayout
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.github.stephenvinouze.core.interfaces.RecognitionCallback
 import com.github.stephenvinouze.core.managers.KontinuousRecognitionManager
+import com.github.stephenvinouze.core.models.RecognitionStatus
 import com.simplemobiletools.camera.BuildConfig
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.config
