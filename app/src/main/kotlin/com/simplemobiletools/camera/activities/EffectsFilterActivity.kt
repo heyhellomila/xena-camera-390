@@ -26,6 +26,7 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.PopupMenu
+import kotlinx.android.synthetic.main.activity_effectsfilter.*
 
 class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
 
@@ -39,7 +40,7 @@ class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
     private var mInitialized = false
     internal var mCurrentEffect: Int = 0
     private var saveFrame: Boolean = false
-    var mPhotoByteArrayFromMain: ByteArray? = null
+    private var mPhotoByteArrayFromMain: ByteArray? = null
 
     fun setCurrentEffect(effect: Int) {
         mCurrentEffect = effect
@@ -58,6 +59,7 @@ class EffectsFilterActivity : Activity(), GLSurfaceView.Renderer {
         mEffectView!!.renderMode = GLSurfaceView.RENDERMODE_WHEN_DIRTY
         mCurrentEffect = R.id.none
         mPhotoByteArrayFromMain = intent.getByteArrayExtra("photoBitmap")
+        camerareturn.setOnClickListener { returnToCamera() }
     }
 
     fun showPopUp(view: View) {

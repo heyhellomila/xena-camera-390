@@ -4,14 +4,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
-import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.rule.GrantPermissionRule
+import androidx.test.filters.LargeTest
 import com.simplemobiletools.camera.R
 import org.hamcrest.Description
 import org.hamcrest.Matcher
@@ -21,7 +18,7 @@ import org.junit.Rule
 import org.junit.Test
 
 @LargeTest
-class SettingsTest {
+class VoiceActivationTest {
 
     @Rule
     @JvmField
@@ -32,14 +29,15 @@ class SettingsTest {
     var mGrantPermissionRule =
             GrantPermissionRule.grant(
                     "android.permission.CAMERA",
+                    "android.permission.RECORD_AUDIO",
                     "android.permission.WRITE_EXTERNAL_STORAGE")
 
     @Test
-    fun settingsTest() {
+    fun voiceActivationTest() {
         // Added a sleep statement to match the app's execution delay.
-        Thread.sleep(7000)
+        Thread.sleep(6000)
 
-        // open settings
+        // Open settings.
         val appCompatImageView = onView(
                 allOf(withId(R.id.settings),
                         childAtPosition(
@@ -54,8 +52,24 @@ class SettingsTest {
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(2000)
 
-        // view settings
+        // Toggle voice activation on.
         val appCompatImageView2 = onView(
+                allOf(withId(R.id.toggle_voice),
+                        childAtPosition(
+                                allOf(withId(R.id.view_holder),
+                                        childAtPosition(
+                                                withId(android.R.id.content),
+                                                0)),
+                                6),
+                        isDisplayed()))
+        appCompatImageView2.perform(click())
+
+        // Added a sleep statement to match the app's execution delay.
+        // It is assumed that a user would use their voice to activate picture capture at this point.
+        Thread.sleep(6000)
+
+        // Open settings.
+        val appCompatImageView3 = onView(
                 allOf(withId(R.id.settings),
                         childAtPosition(
                                 allOf(withId(R.id.view_holder),
@@ -64,50 +78,22 @@ class SettingsTest {
                                                 0)),
                                 1),
                         isDisplayed()))
-        appCompatImageView2.perform(click())
-
-        // Added a sleep statement to match the app's execution delay.
-        Thread.sleep(5000)
-
-        // toggle a setting to ensure UI is reactive
-        val relativeLayout2 = onView(
-                allOf(withId(R.id.settings_turn_flash_off_at_startup_holder),
-                        childAtPosition(
-                                allOf(withId(R.id.settings_holder),
-                                        childAtPosition(
-                                                withId(R.id.settings_scrollview),
-                                                0)),
-                                12)))
-        relativeLayout2.perform(scrollTo(), click())
+        appCompatImageView3.perform(click())
 
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(2000)
 
-        // Save the settings
-        val actionMenuItemView = onView(
-                allOf(withId(R.id.action_save), withText("SAVE"),
+        // Toggle voice activation off.
+        val appCompatImageView4 = onView(
+                allOf(withId(R.id.toggle_voice),
                         childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.action_bar),
-                                        2),
-                                1),
-                        isDisplayed()))
-        actionMenuItemView.perform(click())
-
-        // Added a sleep statement to match the app's execution delay.
-        Thread.sleep(2000)
-
-        // Return to camera preview
-        val appCompatImageButton = onView(
-                allOf(withContentDescription("Navigate up"),
-                        childAtPosition(
-                                allOf(withId(R.id.action_bar),
+                                allOf(withId(R.id.view_holder),
                                         childAtPosition(
-                                                withId(R.id.action_bar_container),
+                                                withId(android.R.id.content),
                                                 0)),
-                                1),
+                                6),
                         isDisplayed()))
-        appCompatImageButton.perform(click())
+        appCompatImageView4.perform(click())
     }
 
     private fun childAtPosition(parentMatcher: Matcher<View>, position: Int): Matcher<View> {
