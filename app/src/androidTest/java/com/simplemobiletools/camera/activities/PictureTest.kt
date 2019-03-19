@@ -43,10 +43,13 @@ class PictureTest {
                                 allOf(withId(R.id.btn_holder),
                                         childAtPosition(
                                                 withId(R.id.view_holder),
-                                                5)),
+                                                7)),
                                 1),
                         isDisplayed()))
         appCompatImageView.perform(click())
+
+        // Added a sleep statement to account for button delay.
+        Thread.sleep(2000)
 
         // Turn on flash
         val appCompatImageView2 = onView(
@@ -55,10 +58,13 @@ class PictureTest {
                                 allOf(withId(R.id.btn_holder),
                                         childAtPosition(
                                                 withId(R.id.view_holder),
-                                                5)),
+                                                7)),
                                 2),
                         isDisplayed()))
         appCompatImageView2.perform(click())
+
+        // Added a sleep statement to account for button delay.
+        Thread.sleep(2000)
 
         // Take a picture with flash
         val appCompatImageView3 = onView(
@@ -67,10 +73,13 @@ class PictureTest {
                                 allOf(withId(R.id.btn_holder),
                                         childAtPosition(
                                                 withId(R.id.view_holder),
-                                                5)),
+                                                7)),
                                 1),
                         isDisplayed()))
         appCompatImageView3.perform(click())
+
+        // Added a sleep statement to account for button delay.
+        Thread.sleep(2000)
 
         // Switch to auto flash
         val appCompatImageView4 = onView(
@@ -79,10 +88,13 @@ class PictureTest {
                                 allOf(withId(R.id.btn_holder),
                                         childAtPosition(
                                                 withId(R.id.view_holder),
-                                                5)),
+                                                7)),
                                 2),
                         isDisplayed()))
         appCompatImageView4.perform(click())
+
+        // Added a sleep statement to account for button delay.
+        Thread.sleep(2000)
 
         // Take a picture with auto flash
         val appCompatImageView5 = onView(
@@ -91,10 +103,13 @@ class PictureTest {
                                 allOf(withId(R.id.btn_holder),
                                         childAtPosition(
                                                 withId(R.id.view_holder),
-                                                5)),
+                                                7)),
                                 1),
                         isDisplayed()))
         appCompatImageView5.perform(click())
+
+        // Added a sleep statement to account for button delay.
+        Thread.sleep(2000)
 
         // Turn off flash
         val appCompatImageView6 = onView(
@@ -103,67 +118,61 @@ class PictureTest {
                                 allOf(withId(R.id.btn_holder),
                                         childAtPosition(
                                                 withId(R.id.view_holder),
-                                                5)),
+                                                7)),
                                 2),
                         isDisplayed()))
         appCompatImageView6.perform(click())
 
-        // Open settings
+        // Added a sleep statement to account for button delay.
+        Thread.sleep(2000)
+
+        // Switch to front camera
         val appCompatImageView7 = onView(
-                allOf(withId(R.id.settings),
+                allOf(withId(R.id.toggle_camera),
                         childAtPosition(
-                                allOf(withId(R.id.view_holder),
+                                allOf(withId(R.id.btn_holder),
                                         childAtPosition(
-                                                withId(android.R.id.content),
-                                                0)),
-                                1),
+                                                withId(R.id.view_holder),
+                                                7)),
+                                0),
                         isDisplayed()))
         appCompatImageView7.perform(click())
 
-        // Added a sleep statement to match the app's execution delay.
-        Thread.sleep(5000)
+        // Added a sleep statement to account for button delay.
+        Thread.sleep(2000)
 
-        // Open last photo/video preview
+        // Take a picture using front camera
         val appCompatImageView8 = onView(
-                allOf(withId(R.id.last_photo_video_preview),
+                allOf(withId(R.id.shutter),
                         childAtPosition(
-                                allOf(withId(R.id.view_holder),
+                                allOf(withId(R.id.btn_holder),
                                         childAtPosition(
-                                                withId(android.R.id.content),
-                                                0)),
-                                4),
+                                                withId(R.id.view_holder),
+                                                7)),
+                                1),
                         isDisplayed()))
         appCompatImageView8.perform(click())
 
-        // Added a sleep statement to match the app's execution delay.
-        Thread.sleep(5000)
+        // Added a sleep statement to account for button delay.
+        Thread.sleep(2000)
 
-        // Switch to front camera
+        // Switch to back camera
         val appCompatImageView9 = onView(
                 allOf(withId(R.id.toggle_camera),
                         childAtPosition(
                                 allOf(withId(R.id.btn_holder),
                                         childAtPosition(
                                                 withId(R.id.view_holder),
-                                                5)),
+                                                7)),
                                 0),
                         isDisplayed()))
         appCompatImageView9.perform(click())
 
-        // Take a picture using front camera
-        val appCompatImageView10 = onView(
-                allOf(withId(R.id.shutter),
-                        childAtPosition(
-                                allOf(withId(R.id.btn_holder),
-                                        childAtPosition(
-                                                withId(R.id.view_holder),
-                                                5)),
-                                1),
-                        isDisplayed()))
-        appCompatImageView10.perform(click())
+        // Added a sleep statement to account for button delay.
+        Thread.sleep(2000)
 
         // Open settings
-        val appCompatImageView11 = onView(
+        val appCompatImageView10 = onView(
                 allOf(withId(R.id.settings),
                         childAtPosition(
                                 allOf(withId(R.id.view_holder),
@@ -172,22 +181,22 @@ class PictureTest {
                                                 0)),
                                 1),
                         isDisplayed()))
-        appCompatImageView11.perform(click())
+        appCompatImageView10.perform(click())
 
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(5000)
 
         // Open last photo/video preview using front camera
-        val appCompatImageView12 = onView(
+        val appCompatImageView11 = onView(
                 allOf(withId(R.id.last_photo_video_preview),
                         childAtPosition(
                                 allOf(withId(R.id.view_holder),
                                         childAtPosition(
                                                 withId(android.R.id.content),
                                                 0)),
-                                4),
+                                5),
                         isDisplayed()))
-        appCompatImageView12.perform(click())
+        appCompatImageView11.perform(click())
     }
 
     private fun childAtPosition(parentMatcher: Matcher<View>, position: Int): Matcher<View> {
