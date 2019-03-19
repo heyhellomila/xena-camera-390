@@ -258,8 +258,19 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         settings.setOnClickListener { launchSettings() }
         toggle_photo_video.setOnClickListener { handleTogglePhotoVideo() }
         filterToggle.setOnClickListener { openFilterOptions() }
-        toggle_voice.setOnClickListener { toggleVoice() }
         change_resolution.setOnClickListener { mPreview?.showChangeResolutionDialog() }
+        toggle_voice.setOnClickListener { handleToggleVoice() }
+    }
+
+    // This method will handle voice activation by first requesting microphone permissions.
+    private fun handleToggleVoice() {
+        handlePermission(PERMISSION_RECORD_AUDIO) {
+            if (it) {
+                toggleVoice()
+            } else {
+                toast(R.string.no_audio_permissions)
+            }
+        }
     }
 
     private fun toggleVoice() { // this function will toggle the voice activation function
