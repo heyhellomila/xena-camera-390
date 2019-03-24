@@ -14,6 +14,9 @@ import android.util.Log
 import android.view.* // ktlint-disable no-wildcard-imports
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
+import com.google.android.gms.vision.Frame;
+import com.google.android.gms.vision.barcode.Barcode;
+import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -167,6 +170,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         last_photo_video_preview.beGone()
         filterToggle.beGone()
         toggle_voice.beGone()
+        qr_scanner.beGone()
     }
 
     private fun tryInitCamera() {
@@ -260,6 +264,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         filterToggle.setOnClickListener { openFilterOptions() }
         change_resolution.setOnClickListener { mPreview?.showChangeResolutionDialog() }
         toggle_voice.setOnClickListener { handleToggleVoice() }
+        qr_scanner.setOnClickListener {  }
     }
 
     // This method will handle voice activation by first requesting microphone permissions.

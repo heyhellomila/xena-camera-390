@@ -64,6 +64,15 @@
         android:padding="@dimen/medium_margin"
         android:src="@drawable/microphone"/>
 
+    <ImageView
+        android:id="@+id/qr_scanner"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_below="@+id/toggle_voice"
+        android:layout_alignParentRight="true"
+        android:padding="8dp"
+        android:src="@drawable/qr"/>
+
     <LinearLayout
         android:id="@+id/btn_holder"
         android:layout_width="match_parent"
