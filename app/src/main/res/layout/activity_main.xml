@@ -70,8 +70,10 @@
         android:layout_height="56dp"
         android:layout_below="@+id/toggle_voice"
         android:layout_alignParentRight="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginRight="0dp"
         android:padding="8dp"
-        android:src="@drawable/qr"/>
+        android:src="@drawable/qr" />
 
     <LinearLayout
         android:id="@+id/btn_holder"
