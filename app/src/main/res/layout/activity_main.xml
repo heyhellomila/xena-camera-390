@@ -64,6 +64,15 @@
         android:padding="@dimen/medium_margin"
         android:src="@drawable/microphone"/>
 
+    <ImageView
+        android:id="@+id/toggle_geotag"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        android:layout_below="@+id/toggle_voice"
+        android:layout_alignParentRight="true"
+        android:padding="@dimen/medium_margin"
+        android:src="@drawable/geotag"/>
+
     <LinearLayout
         android:id="@+id/btn_holder"
         android:layout_width="match_parent"

@@ -36,6 +36,12 @@ import com.simplemobiletools.commons.models.Release
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.ByteArrayOutputStream
 
+import android.location.LocationProvider
+import androidx.core.app.ActivityCompat
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationServices.getFusedLocationProviderClient
+
 class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, RecognitionCallback {
     private val FADE_DELAY = 5000L
     lateinit var mTimerHandler: Handler
@@ -53,6 +59,9 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
     private var mIsHardwareShutterHandled = false
     private var mCurrVideoRecTimer = 0
     var mToggleVoice = true
+    var mToggleGeotag = true
+    private var MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 0;
+    private var fusedLocationClient: FusedLocationProviderClient? = null
     var mLastHandledOrientation = 0
     private var mfilterBitmap: Bitmap? = null
 
@@ -126,6 +135,29 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
             recognitionManager.destroyRecognizer()
         }
         mPreview = null
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION -> {
+                // If request is cancelled, the result arrays are empty.
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return
+            }
+
+            // Add other 'when' lines to check for other
+            // permissions this app might request.
+            else -> {
+                // Ignore all other requests.
+            }
+        }
     }
 
     private fun initVariables() {
@@ -262,6 +294,40 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         filterToggle.setOnClickListener { openFilterOptions() }
         change_resolution.setOnClickListener { mPreview?.showChangeResolutionDialog() }
         toggle_voice.setOnClickListener { handleToggleVoice() }
+        toggle_geotag.setOnClickListener { handleToggleGeotag() }
+    }
+
+    private fun handleToggleGeotag() {
+        // Check permissions. If not granted, then request them. Otherwise, toggleGeotag().
+        if (ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+                    MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION)
+        } else {
+            toggleGeotag()
+        }
+    }
+
+    private fun toggleGeotag() {
+        if (mToggleGeotag){
+            // If permissions have not been granted, call handleToggleGeotag to request permissions.
+            // Otherwise, active geotagging.
+            if (ContextCompat.checkSelfPermission(this,
+                            Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                handleToggleGeotag()
+            }
+            fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+            mToggleGeotag = false
+            toggle_geotag.setImageResource(R.drawable.geotag_active)
+        }
+        else {
+            // Turn off geotag feature.
+            fusedLocationClient = null;
+            mToggleGeotag = true
+            toggle_geotag.setImageResource(R.drawable.geotag)
+            fadeInButtons()
+        }
     }
 
     // This method will handle voice activation by first requesting microphone permissions.
@@ -482,6 +548,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         fadeAnim(last_photo_video_preview, .0f)
         fadeAnim(filterToggle, .0f)
         fadeAnim(toggle_voice, .0f)
+        fadeAnim(toggle_geotag,.0f)
     }
 
     private fun fadeInButtons() {
@@ -491,6 +558,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         fadeAnim(last_photo_video_preview, 1f)
         fadeAnim(filterToggle, 1f)
         fadeAnim(toggle_voice, 1f)
+        fadeAnim(toggle_geotag, 1f)
         scheduleFadeOut()
     }
 
