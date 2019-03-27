@@ -36,7 +36,6 @@ import com.simplemobiletools.commons.models.Release
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.ByteArrayOutputStream
 
-import android.location.LocationProvider
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -60,7 +59,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
     private var mCurrVideoRecTimer = 0
     var mToggleVoice = true
     var mToggleGeotag = true
-    private var MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 0;
+    private var MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 0
     private var fusedLocationClient: FusedLocationProviderClient? = null
     var mLastHandledOrientation = 0
     private var mfilterBitmap: Bitmap? = null
@@ -137,8 +136,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         mPreview = null
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int,
-                                            permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
             MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION -> {
                 // If request is cancelled, the result arrays are empty.
@@ -310,7 +308,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
     }
 
     private fun toggleGeotag() {
-        if (mToggleGeotag){
+        if (mToggleGeotag) {
             // If permissions have not been granted, call handleToggleGeotag to request permissions.
             // Otherwise, active geotagging.
             if (ContextCompat.checkSelfPermission(this,
@@ -320,10 +318,9 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
             mToggleGeotag = false
             toggle_geotag.setImageResource(R.drawable.geotag_active)
-        }
-        else {
+        } else {
             // Turn off geotag feature.
-            fusedLocationClient = null;
+            fusedLocationClient = null
             mToggleGeotag = true
             toggle_geotag.setImageResource(R.drawable.geotag)
             fadeInButtons()
@@ -548,7 +545,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         fadeAnim(last_photo_video_preview, .0f)
         fadeAnim(filterToggle, .0f)
         fadeAnim(toggle_voice, .0f)
-        fadeAnim(toggle_geotag,.0f)
+        fadeAnim(toggle_geotag, .0f)
     }
 
     private fun fadeInButtons() {
