@@ -12,7 +12,9 @@ import android.os.Handler
 import android.provider.MediaStore
 import android.util.Log
 import android.view.* // ktlint-disable no-wildcard-imports
+import android.widget.TextView
 import android.widget.RelativeLayout
+import android.location.Location
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -60,7 +62,9 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
     var mToggleVoice = true
     var mToggleGeotag = true
     private var MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 0
-    private var fusedLocationClient: FusedLocationProviderClient? = null
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    protected var mLastLocation: Location? = null
+    private lateinit var locationTv: TextView
     var mLastHandledOrientation = 0
     private var mfilterBitmap: Bitmap? = null
 
@@ -87,6 +91,9 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         supportActionBar?.hide()
         checkWhatsNewDialog()
         setupOrientationEventListener()
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        locationTv = findViewById(R.id.location);
     }
 
     override fun onResume() {
@@ -315,12 +322,17 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
                             Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 handleToggleGeotag()
             }
-            fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
             mToggleGeotag = false
             toggle_geotag.setImageResource(R.drawable.geotag_active)
+            fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+            fusedLocationClient.lastLocation.addOnSuccessListener {
+                location: Location? ->
+                    mLastLocation = location
+                    locationTv.setText("Latitude : " + location!!.latitude + "\nLongitude : " + location!!.longitude);
+            }
         } else {
             // Turn off geotag feature.
-            fusedLocationClient = null
+            locationTv.setText("");
             mToggleGeotag = true
             toggle_geotag.setImageResource(R.drawable.geotag)
             fadeInButtons()
