@@ -15,6 +15,7 @@ import android.view.* // ktlint-disable no-wildcard-imports
 import android.widget.TextView
 import android.widget.RelativeLayout
 import android.location.Location
+import android.location.Geocoder
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -61,10 +62,11 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
     private var mCurrVideoRecTimer = 0
     var mToggleVoice = true
     var mToggleGeotag = true
-    private var MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 0
+    private var MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     protected var mLastLocation: Location? = null
     private lateinit var locationTv: TextView
+    private lateinit var geocoder: Geocoder
     var mLastHandledOrientation = 0
     private var mfilterBitmap: Bitmap? = null
 
@@ -94,6 +96,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         locationTv = findViewById(R.id.location)
+        geocoder = Geocoder(this)
     }
 
     override fun onResume() {
@@ -145,7 +148,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
-            MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION -> {
+            MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
                 // If request is cancelled, the result arrays are empty.
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     // permission was granted, yay! Do the
@@ -305,10 +308,10 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
     private fun handleToggleGeotag() {
         // Check permissions. If not granted, then request them. Otherwise, toggleGeotag().
         if (ContextCompat.checkSelfPermission(this,
-                        Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
-                    arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
-                    MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION)
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
         } else {
             toggleGeotag()
         }
@@ -319,7 +322,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
             // If permissions have not been granted, call handleToggleGeotag to request permissions.
             // Otherwise, active geotagging.
             if (ContextCompat.checkSelfPermission(this,
-                            Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                            Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 handleToggleGeotag()
             }
             mToggleGeotag = false
@@ -328,7 +331,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
             fusedLocationClient.lastLocation.addOnSuccessListener {
                 location: Location? ->
                     mLastLocation = location
-                    locationTv.setText("Latitude : " + location!!.latitude + "\nLongitude : " + location!!.longitude)
+                    locationTv.setText(geocoder.getFromLocation(location!!.latitude, location!!.longitude, 1).get(0).getAddressLine(0).toString())
             }
         } else {
             // Turn off geotag feature.
