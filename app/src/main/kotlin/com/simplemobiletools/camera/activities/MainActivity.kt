@@ -93,7 +93,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         setupOrientationEventListener()
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        locationTv = findViewById(R.id.location);
+        locationTv = findViewById(R.id.location)
     }
 
     override fun onResume() {
@@ -328,11 +328,11 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
             fusedLocationClient.lastLocation.addOnSuccessListener {
                 location: Location? ->
                     mLastLocation = location
-                    locationTv.setText("Latitude : " + location!!.latitude + "\nLongitude : " + location!!.longitude);
+                    locationTv.setText("Latitude : " + location!!.latitude + "\nLongitude : " + location!!.longitude)
             }
         } else {
             // Turn off geotag feature.
-            locationTv.setText("");
+            locationTv.setText("")
             mToggleGeotag = true
             toggle_geotag.setImageResource(R.drawable.geotag)
             fadeInButtons()
