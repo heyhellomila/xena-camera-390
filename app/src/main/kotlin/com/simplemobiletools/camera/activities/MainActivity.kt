@@ -342,6 +342,14 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         }
     }
 
+    fun getGeotagState(): Boolean {
+        return mToggleGeotag
+    }
+
+    fun getLastLocation(): Location? {
+        return mLastLocation
+    }
+
     // This method will handle voice activation by first requesting microphone permissions.
     private fun handleToggleVoice() {
         handlePermission(PERMISSION_RECORD_AUDIO) {
