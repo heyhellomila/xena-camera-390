@@ -43,8 +43,6 @@ import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationServices.getFusedLocationProviderClient
-import java.lang.reflect.InvocationHandler
-import java.lang.reflect.InvocationTargetException
 
 class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, RecognitionCallback {
     private val FADE_DELAY = 5000L
@@ -322,7 +320,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
     private fun toggleGeotag() {
         if (mToggleGeotag) {
             // If permissions have not been granted, call handleToggleGeotag to request permissions.
-            // Otherwise, active geotagging.
+            // Otherwise, activate geotagging.
             if (ContextCompat.checkSelfPermission(this,
                             Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 handleToggleGeotag()
