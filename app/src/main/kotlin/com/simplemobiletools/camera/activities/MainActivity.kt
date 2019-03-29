@@ -43,6 +43,8 @@ import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationServices.getFusedLocationProviderClient
+import java.lang.reflect.InvocationHandler
+import java.lang.reflect.InvocationTargetException
 
 class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, RecognitionCallback {
     private val FADE_DELAY = 5000L
@@ -330,12 +332,24 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
             fusedLocationClient.lastLocation.addOnSuccessListener {
                 location: Location? ->
-                    mLastLocation = location
-                    locationTv.setText(geocoder.getFromLocation(location!!.latitude, location!!.longitude, 1).get(0).getAddressLine(0).toString())
+                    if (location == null) {
+                        toast("Location was unsuccessfully retrieved. Check your Internet connection and signal strength.")
+                        toggleGeotag()
+                    } else {
+                        try {
+                            mLastLocation = location
+                            locationTv.text = geocoder.getFromLocation(location!!.latitude, location!!.longitude, 1).get(0).getAddressLine(0).toString()
+                            locationTv.beVisible()
+                        } catch (e: Exception) {
+                            // Notify the user that there is no connection and reset the geotag toggle.
+                            toast("No Internet connection.")
+                            toggleGeotag()
+                        }
+                    }
             }
         } else {
             // Turn off geotag feature.
-            locationTv.setText("")
+            locationTv.beInvisible()
             mToggleGeotag = true
             toggle_geotag.setImageResource(R.drawable.geotag)
             fadeInButtons()
