@@ -71,7 +71,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
     var mLastHandledOrientation = 0
     private var mfilterBitmap: Bitmap? = null
 
-    private lateinit var firebaseAnalytics: FirebaseAnalytics //analytics from firebase
+    private lateinit var firebaseAnalytics: FirebaseAnalytics // analytics from firebase
 
     companion object {
         /**
@@ -92,9 +92,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         requestWindowFeature(Window.FEATURE_NO_TITLE)
 
         // Obtain the FirebaseAnalytics instance.
-        firebaseAnalytics = FirebaseAnalytics.getInstance(this) //initializing the analytics
-
-
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this) // initializing the analytics
 
         initVariables()
         tryInitCamera()
@@ -333,12 +331,12 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
                             Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 handleToggleGeotag()
             }
-            //firebase analytics for geotagging
+            // firebase analytics for geotagging
             // [START geotagging event]
             val bundle = Bundle()
             bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "geoTagging")
             firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
-            //[END geotagging event]
+            // [END geotagging event]
 
             mToggleGeotag = false
             toggle_geotag.setImageResource(R.drawable.geotag_active)
@@ -394,7 +392,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
                 recognitionManager.startRecognition()
 
-                //firebase analytics for voiceActivation
+                // firebase analytics for voiceActivation
                 // [START voice activation event]
                 val bundle = Bundle()
                 bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "voiceActivation")
@@ -416,12 +414,12 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
     private fun openFilterOptions() {
         var intent = Intent(applicationContext, EffectsFilterActivity::class.java)
 
-        //firebase analytics for filters
-        //[START filter event]
+        // firebase analytics for filters
+        // [START filter event]
         val bundle = Bundle()
         bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "filter")
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
-        //[END filter event]
+        // [END filter event]
 
         // if a photo has been taken, convert the bitmap into a byteArray
         if (mfilterBitmap != null) {
