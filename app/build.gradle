@@ -3,6 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'jacoco'
 apply from: "../ktlint.gradle"
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.firebase-perf'
 
 android {
     compileSdkVersion 28
@@ -57,11 +59,13 @@ dependencies {
     implementation "com.github.StephenVinouze:KontinuousSpeechRecognizer:1.0.3"
     implementation "com.google.android.gms:play-services-location:15.0.1"
 
-
     //Testing
+    implementation 'com.google.firebase:firebase-core:16.0.3'
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.8.9'
     testImplementation 'androidx.test:core:1.0.0'
+    implementation 'com.google.firebase:firebase-perf:16.2.4'
+    implementation 'com.google.firebase:firebase-core:16.0.8'
 
     //espresso testing
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'

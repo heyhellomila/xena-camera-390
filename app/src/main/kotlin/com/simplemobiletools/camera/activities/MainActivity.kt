@@ -43,6 +43,7 @@ import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationServices.getFusedLocationProviderClient
+import com.google.firebase.analytics.FirebaseAnalytics
 
 class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, RecognitionCallback {
     private val FADE_DELAY = 5000L
@@ -70,6 +71,8 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
     var mLastHandledOrientation = 0
     private var mfilterBitmap: Bitmap? = null
 
+    private lateinit var firebaseAnalytics: FirebaseAnalytics // analytics from firebase
+
     companion object {
         /**
          * Put any keyword that will trigger the speech recognition
@@ -87,6 +90,9 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         super.onCreate(savedInstanceState)
         appLaunched(BuildConfig.APPLICATION_ID)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
+
+        // Obtain the FirebaseAnalytics instance.
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this) // initializing the analytics
 
         initVariables()
         tryInitCamera()
@@ -325,6 +331,13 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
                             Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 handleToggleGeotag()
             }
+            // firebase analytics for geotagging
+            // [START geotagging event]
+            val bundle = Bundle()
+            bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "geoTagging")
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
+            // [END geotagging event]
+
             mToggleGeotag = false
             toggle_geotag.setImageResource(R.drawable.geotag_active)
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -378,6 +391,13 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
             recognitionManager = KontinuousRecognitionManager(this, activationKeyword = ACTIVATION_KEYWORD, callback = this)
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
                 recognitionManager.startRecognition()
+
+                // firebase analytics for voiceActivation
+                // [START voice activation event]
+                val bundle = Bundle()
+                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "voiceActivation")
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
+                // [END voice activation event]
             }
             mToggleVoice = false
             toggle_voice.setImageResource(R.drawable.microphone_active)
@@ -393,6 +413,13 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
 
     private fun openFilterOptions() {
         var intent = Intent(applicationContext, EffectsFilterActivity::class.java)
+
+        // firebase analytics for filters
+        // [START filter event]
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "filter")
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
+        // [END filter event]
 
         // if a photo has been taken, convert the bitmap into a byteArray
         if (mfilterBitmap != null) {
