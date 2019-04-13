@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "746819468162",
+    "firebase_url": "https://xena-ba57c.firebaseio.com",
+    "project_id": "xena-ba57c",
+    "storage_bucket": "xena-ba57c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:746819468162:android:3a475049651f7538",
+        "android_client_info": {
+          "package_name": "com.simplemobiletools.camera.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "746819468162-atsna1r5uj7dhuq7lio4l7fhiklloul0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.simplemobiletools.camera.debug",
+            "certificate_hash": "ee41aec471846ad5f7ca55bfc36806d43872505a"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgyJ1z6THgdDEordxjBE97JOmTSUSStcE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "746819468162-j0scqntud6g6a67o2l7dqqchlisnin0m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -65,13 +65,13 @@
         android:src="@drawable/microphone"/>
 
     <ImageView
-        android:id="@+id/qr_scanner"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:id="@+id/toggle_geotag"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
         android:layout_below="@+id/toggle_voice"
         android:layout_alignParentRight="true"
-        android:padding="8dp"
-        android:src="@drawable/qr"/>
+        android:padding="@dimen/medium_margin"
+        android:src="@drawable/geotag"/>
 
     <LinearLayout
         android:id="@+id/btn_holder"
@@ -114,5 +114,17 @@
         android:text="00:00"
         android:textColor="@android:color/white"
         android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="550dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="left"
+        android:layout_above="@+id/btn_holder"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
 
 </RelativeLayout>
