@@ -122,12 +122,6 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths"/>
-
-            <meta-data
-                android:name="com.google.android.gms.vision.DEPENDENCIES"
-                android:value="barcode"
-                />
-
         </provider>
 
         <activity-alias

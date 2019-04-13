@@ -36,7 +36,7 @@ import com.simplemobiletools.camera.views.FocusCircleView
 import com.simplemobiletools.commons.extensions.* // ktlint-disable no-wildcard-imports
 import com.simplemobiletools.commons.helpers.* // ktlint-disable no-wildcard-imports
 import com.simplemobiletools.commons.models.Release
-import kotlinx.android.synthetic.main.activity_main.* //ktlint-disable-no-wildcard-imports
+import kotlinx.android.synthetic.main.activity_main.* // ktlint-disable-no-wildcard-imports
 import java.io.ByteArrayOutputStream
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -321,19 +321,19 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-          if (resultCode == Activity.RESULT_OK) {
-              val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
-              if (result != null) {
-                  if (result.contents == null) {
-                      Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show()
-                  } else {
-                      Toast.makeText(this, "Scanned: " + result.contents, Toast.LENGTH_LONG).show()
-                  }
-              } else {
-                  super.onActivityResult(requestCode, resultCode, data)
-              }
-          }
-      }
+        if (resultCode == Activity.RESULT_OK) {
+            val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+            if (result != null) {
+                if (result.contents == null) {
+                    Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(this, "Scanned: " + result.contents, Toast.LENGTH_LONG).show()
+                }
+            } else {
+                super.onActivityResult(requestCode, resultCode, data)
+            }
+        }
+    }
 
     private fun handleToggleGeotag() {
         // Check permissions. If not granted, then request them. Otherwise, toggleGeotag().
