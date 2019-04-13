@@ -11,7 +11,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
 import android.util.Log
-import android.util.SparseArray
 import android.view.* // ktlint-disable no-wildcard-imports
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
@@ -59,7 +58,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
     var mToggleVoice = true
     var mLastHandledOrientation = 0
     private var mfilterBitmap: Bitmap? = null
-    private var mQrBitmap: Bitmap? = null
 
     companion object {
         /**
@@ -266,7 +264,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         filterToggle.setOnClickListener { openFilterOptions() }
         change_resolution.setOnClickListener { mPreview?.showChangeResolutionDialog() }
         toggle_voice.setOnClickListener { handleToggleVoice() }
-        qr_scanner.setOnClickListener { detectQr() }
+        qr_scanner.setOnClickListener {  }
     }
 
     // This method will handle voice activation by first requesting microphone permissions.
@@ -278,19 +276,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
                 toast(R.string.no_audio_permissions)
             }
         }
-    }
-
-    private fun detectQr(){
-
-        val detector = BarcodeDetector.Builder(getApplicationContext()).setBarcodeFormats(Barcode.QR_CODE).build()
-        if(!detector.isOperational()){
-            Log.i("Qr", "Could not set up the detector!");
-            return
-        }
-        val frame = Frame.Builder().setBitmap(mQrBitmap).build()
-        val barcodes = detector.detect(frame)
-        val thisCode = barcodes.valueAt(0)
-
     }
 
     private fun toggleVoice() { // this function will toggle the voice activation function
@@ -500,7 +485,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         fadeAnim(last_photo_video_preview, .0f)
         fadeAnim(filterToggle, .0f)
         fadeAnim(toggle_voice, .0f)
-        fadeAnim(qr_scanner, .0f)
     }
 
     private fun fadeInButtons() {
@@ -510,7 +494,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         fadeAnim(last_photo_video_preview, 1f)
         fadeAnim(filterToggle, 1f)
         fadeAnim(toggle_voice, 1f)
-        fadeAnim(qr_scanner, 1f)
         scheduleFadeOut()
     }
 
