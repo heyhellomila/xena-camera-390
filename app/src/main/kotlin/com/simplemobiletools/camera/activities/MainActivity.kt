@@ -12,7 +12,10 @@ import android.os.Handler
 import android.provider.MediaStore
 import android.util.Log
 import android.view.* // ktlint-disable no-wildcard-imports
+import android.widget.TextView
 import android.widget.RelativeLayout
+import android.location.Location
+import android.location.Geocoder
 import androidx.core.content.ContextCompat
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -39,6 +42,12 @@ import com.simplemobiletools.commons.models.Release
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.ByteArrayOutputStream
 
+import androidx.core.app.ActivityCompat
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationServices.getFusedLocationProviderClient
+import com.google.firebase.analytics.FirebaseAnalytics
+
 class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, RecognitionCallback {
     private val FADE_DELAY = 5000L
     lateinit var mTimerHandler: Handler
@@ -56,8 +65,16 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
     private var mIsHardwareShutterHandled = false
     private var mCurrVideoRecTimer = 0
     var mToggleVoice = true
+    var mToggleGeotag = true
+    private var MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    protected var mLastLocation: Location? = null
+    private lateinit var locationTv: TextView
+    private lateinit var geocoder: Geocoder
     var mLastHandledOrientation = 0
     private var mfilterBitmap: Bitmap? = null
+
+    private lateinit var firebaseAnalytics: FirebaseAnalytics // analytics from firebase
 
     companion object {
         /**
@@ -77,11 +94,18 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         appLaunched(BuildConfig.APPLICATION_ID)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
 
+        // Obtain the FirebaseAnalytics instance.
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this) // initializing the analytics
+
         initVariables()
         tryInitCamera()
         supportActionBar?.hide()
         checkWhatsNewDialog()
         setupOrientationEventListener()
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        locationTv = findViewById(R.id.location)
+        geocoder = Geocoder(this)
     }
 
     override fun onResume() {
@@ -125,8 +149,32 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
 
     override fun onDestroy() {
         super.onDestroy()
-        recognitionManager.destroyRecognizer()
+        if (::recognitionManager.isInitialized) {
+            recognitionManager.destroyRecognizer()
+        }
         mPreview = null
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
+                // If request is cancelled, the result arrays are empty.
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return
+            }
+
+            // Add other 'when' lines to check for other
+            // permissions this app might request.
+            else -> {
+                // Ignore all other requests.
+            }
+        }
     }
 
     private fun initVariables() {
@@ -264,7 +312,72 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         filterToggle.setOnClickListener { openFilterOptions() }
         change_resolution.setOnClickListener { mPreview?.showChangeResolutionDialog() }
         toggle_voice.setOnClickListener { handleToggleVoice() }
-        qr_scanner.setOnClickListener {  }
+        //qr_scanner.setOnClickListener {  }
+        toggle_geotag.setOnClickListener { handleToggleGeotag() }
+    }
+
+    private fun handleToggleGeotag() {
+        // Check permissions. If not granted, then request them. Otherwise, toggleGeotag().
+        if (ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
+        } else {
+            toggleGeotag()
+        }
+    }
+
+    private fun toggleGeotag() {
+        if (mToggleGeotag) {
+            // If permissions have not been granted, call handleToggleGeotag to request permissions.
+            // Otherwise, activate geotagging.
+            if (ContextCompat.checkSelfPermission(this,
+                            Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                handleToggleGeotag()
+            }
+            // firebase analytics for geotagging
+            // [START geotagging event]
+            val bundle = Bundle()
+            bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "geoTagging")
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
+            // [END geotagging event]
+
+            mToggleGeotag = false
+            toggle_geotag.setImageResource(R.drawable.geotag_active)
+            fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+            fusedLocationClient.lastLocation.addOnSuccessListener {
+                location: Location? ->
+                    if (location == null) {
+                        toast("Location was unsuccessfully retrieved. Check your Internet connection and signal strength.")
+                        toggleGeotag()
+                    } else {
+                        try {
+                            mLastLocation = location
+                            locationTv.text = geocoder.getFromLocation(location!!.latitude, location!!.longitude, 1).get(0).getAddressLine(0).toString()
+                            locationTv.beVisible()
+                        } catch (e: Exception) {
+                            // Notify the user that there is no connection and reset the geotag toggle.
+                            toast("No Internet connection.")
+                            toggleGeotag()
+                        }
+                    }
+            }
+        } else {
+            // Turn off geotag feature.
+            locationTv.beInvisible()
+            mToggleGeotag = true
+            toggle_geotag.setImageResource(R.drawable.geotag)
+            fadeInButtons()
+        }
+    }
+
+    fun getGeotagState(): Boolean {
+        return mToggleGeotag
+    }
+
+    fun getLastLocation(): Location? {
+        return mLastLocation
     }
 
     // This method will handle voice activation by first requesting microphone permissions.
@@ -283,6 +396,13 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
             recognitionManager = KontinuousRecognitionManager(this, activationKeyword = ACTIVATION_KEYWORD, callback = this)
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
                 recognitionManager.startRecognition()
+
+                // firebase analytics for voiceActivation
+                // [START voice activation event]
+                val bundle = Bundle()
+                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "voiceActivation")
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
+                // [END voice activation event]
             }
             mToggleVoice = false
             toggle_voice.setImageResource(R.drawable.microphone_active)
@@ -298,6 +418,13 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
 
     private fun openFilterOptions() {
         var intent = Intent(applicationContext, EffectsFilterActivity::class.java)
+
+        // firebase analytics for filters
+        // [START filter event]
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "filter")
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
+        // [END filter event]
 
         // if a photo has been taken, convert the bitmap into a byteArray
         if (mfilterBitmap != null) {
@@ -485,6 +612,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         fadeAnim(last_photo_video_preview, .0f)
         fadeAnim(filterToggle, .0f)
         fadeAnim(toggle_voice, .0f)
+        fadeAnim(toggle_geotag, .0f)
     }
 
     private fun fadeInButtons() {
@@ -494,6 +622,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         fadeAnim(last_photo_video_preview, 1f)
         fadeAnim(filterToggle, 1f)
         fadeAnim(toggle_voice, 1f)
+        fadeAnim(toggle_geotag, 1f)
         scheduleFadeOut()
     }
 

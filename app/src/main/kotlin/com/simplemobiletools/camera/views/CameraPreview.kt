@@ -576,6 +576,8 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
                 set(CaptureRequest.JPEG_ORIENTATION, jpegOrientation)
                 set(CaptureRequest.CONTROL_CAPTURE_INTENT, CaptureRequest.CONTROL_CAPTURE_INTENT_STILL_CAPTURE)
                 set(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, getFrameRange())
+                if (mActivity.getGeotagState() == false)
+                    set(CaptureRequest.JPEG_GPS_LOCATION, mActivity.getLastLocation())
                 if (mZoomRect != null) {
                     set(CaptureRequest.SCALER_CROP_REGION, mZoomRect)
                 }
