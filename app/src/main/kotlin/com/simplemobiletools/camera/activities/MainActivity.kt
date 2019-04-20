@@ -36,14 +36,15 @@ import com.simplemobiletools.camera.views.FocusCircleView
 import com.simplemobiletools.commons.extensions.* // ktlint-disable no-wildcard-imports
 import com.simplemobiletools.commons.helpers.* // ktlint-disable no-wildcard-imports
 import com.simplemobiletools.commons.models.Release
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.* // ktlint-disable-no-wildcard-imports
 import java.io.ByteArrayOutputStream
-
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationServices.getFusedLocationProviderClient
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.zxing.integration.android.IntentIntegrator
+import android.widget.Toast
 
 class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, RecognitionCallback {
     private val FADE_DELAY = 5000L
@@ -308,7 +309,29 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         filterToggle.setOnClickListener { openFilterOptions() }
         change_resolution.setOnClickListener { mPreview?.showChangeResolutionDialog() }
         toggle_voice.setOnClickListener { handleToggleVoice() }
+        qr_scanner.setOnClickListener { activateQRScanner() }
         toggle_geotag.setOnClickListener { handleToggleGeotag() }
+    }
+
+    private fun activateQRScanner() {
+        val scanner = IntentIntegrator(this)
+        scanner.setBeepEnabled(false)
+        scanner.initiateScan()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK) {
+            val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+            if (result != null) {
+                if (result.contents == null) {
+                    Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(this, "Scanned: " + result.contents, Toast.LENGTH_LONG).show()
+                }
+            } else {
+                super.onActivityResult(requestCode, resultCode, data)
+            }
+        }
     }
 
     private fun handleToggleGeotag() {
@@ -608,6 +631,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         fadeAnim(filterToggle, .0f)
         fadeAnim(toggle_voice, .0f)
         fadeAnim(toggle_geotag, .0f)
+        fadeAnim(qr_scanner, .0f)
     }
 
     private fun fadeInButtons() {
@@ -618,6 +642,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         fadeAnim(filterToggle, 1f)
         fadeAnim(toggle_voice, 1f)
         fadeAnim(toggle_geotag, 1f)
+        fadeAnim(qr_scanner, 1f)
         scheduleFadeOut()
     }
 

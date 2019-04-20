@@ -102,6 +102,11 @@
             android:label="@string/settings"
             android:parentActivityName=".activities.MainActivity"/>
 
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="screenOrientation" />
+
         <receiver
             android:name=".receivers.HardwareShutterReceiver">
             <intent-filter>
