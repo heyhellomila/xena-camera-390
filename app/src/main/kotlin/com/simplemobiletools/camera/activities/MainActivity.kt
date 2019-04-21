@@ -81,7 +81,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
     }
 
     //voice activation testing variables
-    var handleToggleVoiceCalled: Int = 0
     var tryTakePictureCalled: Int = 0
 
 
@@ -382,7 +381,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
 
     // This method will handle voice activation by first requesting microphone permissions.
     private fun handleToggleVoice() {
-        handleToggleVoiceCalled += 1
         handlePermission(PERMISSION_RECORD_AUDIO) {
             if (it) {
                 toggleVoice()
