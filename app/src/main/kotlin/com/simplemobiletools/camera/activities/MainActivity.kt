@@ -82,7 +82,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
 
     //voice activation testing variables
     var handleToggleVoiceCalled: Int = 0
-    var toggleVoiceCalled: Int = 0
     var tryTakePictureCalled: Int = 0
 
 
@@ -394,7 +393,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
     }
 
     private fun toggleVoice() { // this function will toggle the voice activation function
-        toggleVoiceCalled += 1
         if (mToggleVoice) { // if the voice recognition is not active, then turn it on
             recognitionManager = KontinuousRecognitionManager(this, activationKeyword = ACTIVATION_KEYWORD, callback = this)
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {

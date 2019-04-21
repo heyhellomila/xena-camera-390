@@ -3,9 +3,6 @@ package com.simplemobiletools.camera.testing
 import com.simplemobiletools.camera.activities.MainActivity
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.verify
-
 
 class VoiceActivationTest {
     var main: MainActivity? = null
@@ -19,15 +16,13 @@ class VoiceActivationTest {
     @Test
     fun testHandleToggleVoice() {
         var originalHandleCallNumber = main!!.handleToggleVoiceCalled
-        // var originalToggleCallNumber = main.toggleVoiceCalled
-        // R.id.toggle_voice.performClick()
+        // Need something here that calls and runs main.handleToggleVoice() -->  toggle_voice.performClick()?
         assert(main!!.handleToggleVoiceCalled == originalHandleCallNumber+1)
-        //assert(main.toggleVoiceCalled == originalToggleCallNumber+1)
     }
 
 
 
-    // Check that a picture is taken
+    // Check that a picture is taken when keyword is detected
     @Test
     fun testTakePicture() {
         var originalTryTakePictureCallNumber = main!!.tryTakePictureCalled
