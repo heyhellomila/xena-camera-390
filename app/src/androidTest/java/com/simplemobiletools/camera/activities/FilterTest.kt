@@ -35,8 +35,7 @@ class FilterTest {
     fun filterTest() {
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(5000)
-
-
+        
         // open settings options holder
         val appCompatImageView = onView(
                 allOf(withId(R.id.settings),
@@ -51,7 +50,6 @@ class FilterTest {
 
         // Wait for settings to open.
         Thread.sleep(2000)
-
 
         // open effects filter activity
         val appCompatImageView2 = onView(
@@ -68,7 +66,6 @@ class FilterTest {
         // Wait for filter UI to open.
         Thread.sleep(2000)
 
-
         // capture filter menu button and open menu
         val imageButton = onView(
                 allOf(withId(R.id.openeffects),
@@ -82,7 +79,6 @@ class FilterTest {
 
         // Wait for filter menu to open.
         Thread.sleep(2000)
-
 
         // select filter and apply to image
         val textView = onView(

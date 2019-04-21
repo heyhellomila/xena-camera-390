@@ -1,7 +1,6 @@
 package com.simplemobiletools.camera.testing
 
 import com.simplemobiletools.camera.activities.MainActivity
-import org.junit.Before
 import org.junit.Test
 
 class VoiceActivationTest {
@@ -12,7 +11,6 @@ class VoiceActivationTest {
         val main = MainActivity()
         var originalTryTakePictureCallNumber = main.tryTakePictureCalled
         main.onKeywordDetected()
-        assert(main.tryTakePictureCalled == originalTryTakePictureCallNumber+1)
+        assert(main.tryTakePictureCalled == originalTryTakePictureCallNumber + 1)
     }
-
 }
