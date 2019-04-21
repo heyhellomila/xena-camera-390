@@ -35,7 +35,7 @@ class FilterTest {
     fun filterTest() {
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(5000)
-        
+
         // open settings options holder
         val appCompatImageView = onView(
                 allOf(withId(R.id.settings),
