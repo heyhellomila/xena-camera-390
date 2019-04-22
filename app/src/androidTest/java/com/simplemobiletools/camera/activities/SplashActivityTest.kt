@@ -46,20 +46,20 @@ class SplashActivityTest {
         // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
         Thread.sleep(7000)
 
-try {
-    val appCompatImageView = onView(
-            allOf(withId(R.id.shutter),
-                    childAtPosition(
-                            allOf(withId(R.id.btn_holder),
-                                    childAtPosition(
-                                            withId(R.id.view_holder),
-                                            9)),
-                            1),
-                    isDisplayed()))
-    appCompatImageView.perform(click())
-}catch (E: Exception ){
-    print("Shutter Error")
-}
+        try {
+            val appCompatImageView = onView(
+                    allOf(withId(R.id.shutter),
+                            childAtPosition(
+                                    allOf(withId(R.id.btn_holder),
+                                            childAtPosition(
+                                                    withId(R.id.view_holder),
+                                                    9)),
+                                    1),
+                            isDisplayed()))
+            appCompatImageView.perform(click())
+        } catch (E: Exception) {
+            print("Shutter Error")
+        }
     }
 
     private fun childAtPosition(

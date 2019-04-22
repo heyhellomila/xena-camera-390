@@ -37,106 +37,106 @@ class VideoTest {
     fun videoTest() {
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(7000)
-try{
-        // press settings
-        val appCompatImageView = onView(
-                allOf(withId(R.id.settings),
-                        childAtPosition(
-                                allOf(withId(R.id.view_holder),
-                                        childAtPosition(
-                                                withId(android.R.id.content),
-                                                0)),
-                                1),
-                        isDisplayed()))
-        appCompatImageView.perform(click())
-}catch (E: Exception ){
-    print("Settings Error")
-}
+        try {
+            // press settings
+            val appCompatImageView = onView(
+                    allOf(withId(R.id.settings),
+                            childAtPosition(
+                                    allOf(withId(R.id.view_holder),
+                                            childAtPosition(
+                                                    withId(android.R.id.content),
+                                                    0)),
+                                    1),
+                            isDisplayed()))
+            appCompatImageView.perform(click())
+        } catch (E: Exception) {
+            print("Settings Error")
+        }
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(2000)
-try{
-        // press to toggle video mode
-        val appCompatImageView2 = onView(
-                allOf(withId(R.id.toggle_photo_video),
-                        childAtPosition(
-                                allOf(withId(R.id.view_holder),
-                                        childAtPosition(
-                                                withId(android.R.id.content),
-                                                0)),
-                                2),
-                        isDisplayed()))
-        appCompatImageView2.perform(click())
-}catch (E: Exception ){
-    print("Toggle Video/Picture Error")
-}
+        try {
+            // press to toggle video mode
+            val appCompatImageView2 = onView(
+                    allOf(withId(R.id.toggle_photo_video),
+                            childAtPosition(
+                                    allOf(withId(R.id.view_holder),
+                                            childAtPosition(
+                                                    withId(android.R.id.content),
+                                                    0)),
+                                    2),
+                            isDisplayed()))
+            appCompatImageView2.perform(click())
+        } catch (E: Exception) {
+            print("Toggle Video/Picture Error")
+        }
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(7000)
-try{
-        // begin record
-        val appCompatImageView3 = onView(
-                allOf(withId(R.id.shutter),
-                        childAtPosition(
-                                allOf(withId(R.id.btn_holder),
-                                        childAtPosition(
-                                                withId(R.id.view_holder),
-                                                7)),
-                                1),
-                        isDisplayed()))
-        appCompatImageView3.perform(click())
-}catch (E: Exception ){
-    print("Shutter Error")
-}
+        try {
+            // begin record
+            val appCompatImageView3 = onView(
+                    allOf(withId(R.id.shutter),
+                            childAtPosition(
+                                    allOf(withId(R.id.btn_holder),
+                                            childAtPosition(
+                                                    withId(R.id.view_holder),
+                                                    7)),
+                                    1),
+                            isDisplayed()))
+            appCompatImageView3.perform(click())
+        } catch (E: Exception) {
+            print("Shutter Error")
+        }
         // Added a sleep statement to let camera record
         Thread.sleep(3000)
-try{
-        // end recording
-        val appCompatImageView4 = onView(
-                allOf(withId(R.id.shutter),
-                        childAtPosition(
-                                allOf(withId(R.id.btn_holder),
-                                        childAtPosition(
-                                                withId(R.id.view_holder),
-                                                7)),
-                                1),
-                        isDisplayed()))
-        appCompatImageView4.perform(click())
-}catch (E: Exception ){
-    print("End Recording Error")
-}
+        try {
+            // end recording
+            val appCompatImageView4 = onView(
+                    allOf(withId(R.id.shutter),
+                            childAtPosition(
+                                    allOf(withId(R.id.btn_holder),
+                                            childAtPosition(
+                                                    withId(R.id.view_holder),
+                                                    7)),
+                                    1),
+                            isDisplayed()))
+            appCompatImageView4.perform(click())
+        } catch (E: Exception) {
+            print("End Recording Error")
+        }
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(7000)
-try{
-        // open settings
-        val appCompatImageView6 = onView(
-                allOf(withId(R.id.settings),
-                        childAtPosition(
-                                allOf(withId(R.id.view_holder),
-                                        childAtPosition(
-                                                withId(android.R.id.content),
-                                                0)),
-                                1),
-                        isDisplayed()))
-        appCompatImageView6.perform(click())
-}catch (E: Exception ){
-    print("Settings Error")
-}
+        try {
+            // open settings
+            val appCompatImageView6 = onView(
+                    allOf(withId(R.id.settings),
+                            childAtPosition(
+                                    allOf(withId(R.id.view_holder),
+                                            childAtPosition(
+                                                    withId(android.R.id.content),
+                                                    0)),
+                                    1),
+                            isDisplayed()))
+            appCompatImageView6.perform(click())
+        } catch (E: Exception) {
+            print("Settings Error")
+        }
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(2000)
-try{
-        // toggle photo mode back on
-        val appCompatImageView7 = onView(
-                allOf(withId(R.id.toggle_photo_video),
-                        childAtPosition(
-                                allOf(withId(R.id.view_holder),
-                                        childAtPosition(
-                                                withId(android.R.id.content),
-                                                0)),
-                                2),
-                        isDisplayed()))
-        appCompatImageView7.perform(click())
-}catch (E: Exception ){
-    print("Toggle video/picture Error")
-}
+        try {
+            // toggle photo mode back on
+            val appCompatImageView7 = onView(
+                    allOf(withId(R.id.toggle_photo_video),
+                            childAtPosition(
+                                    allOf(withId(R.id.view_holder),
+                                            childAtPosition(
+                                                    withId(android.R.id.content),
+                                                    0)),
+                                    2),
+                            isDisplayed()))
+            appCompatImageView7.perform(click())
+        } catch (E: Exception) {
+            print("Toggle video/picture Error")
+        }
     }
 
     private fun childAtPosition(parentMatcher: Matcher<View>, position: Int): Matcher<View> {
@@ -145,6 +145,7 @@ try{
                 description.appendText("Child at position $position in parent ")
                 parentMatcher.describeTo(description)
             }
+
             public override fun matchesSafely(view: View): Boolean {
                 val parent = view.parent
                 return parent is ViewGroup && parentMatcher.matches(parent) && view == parent.getChildAt(position)

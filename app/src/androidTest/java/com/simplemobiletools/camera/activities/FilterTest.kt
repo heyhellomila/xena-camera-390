@@ -35,58 +35,66 @@ class FilterTest {
     fun filterTest() {
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(5000)
-
-        val appCompatImageView = onView(
-                allOf(withId(R.id.settings),
-                        childAtPosition(
-                                allOf(withId(R.id.view_holder),
-                                        childAtPosition(
-                                                withId(android.R.id.content),
-                                                0)),
-                                1),
-                        isDisplayed()))
-        appCompatImageView.perform(click())
-
+        try {
+            val appCompatImageView = onView(
+                    allOf(withId(R.id.settings),
+                            childAtPosition(
+                                    allOf(withId(R.id.view_holder),
+                                            childAtPosition(
+                                                    withId(android.R.id.content),
+                                                    0)),
+                                    1),
+                            isDisplayed()))
+            appCompatImageView.perform(click())
+        } catch (E: Exception) {
+            print("Settings Error")
+        }
         // Wait for settings to open.
         Thread.sleep(2000)
-
-        val appCompatImageView2 = onView(
-                allOf(withId(R.id.filterToggle),
-                        childAtPosition(
-                                allOf(withId(R.id.view_holder),
-                                        childAtPosition(
-                                                withId(android.R.id.content),
-                                                0)),
-                                4),
-                        isDisplayed()))
-        appCompatImageView2.perform(click())
-
+        try {
+            val appCompatImageView2 = onView(
+                    allOf(withId(R.id.filterToggle),
+                            childAtPosition(
+                                    allOf(withId(R.id.view_holder),
+                                            childAtPosition(
+                                                    withId(android.R.id.content),
+                                                    0)),
+                                    4),
+                            isDisplayed()))
+            appCompatImageView2.perform(click())
+        } catch (E: Exception) {
+            print("Filter Toggle Error")
+        }
         // Wait for filter UI to open.
         Thread.sleep(2000)
-
-        val imageButton = onView(
-                allOf(withId(R.id.openeffects),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                1),
-                        isDisplayed()))
-        imageButton.perform(click())
-
+        try {
+            val imageButton = onView(
+                    allOf(withId(R.id.openeffects),
+                            childAtPosition(
+                                    childAtPosition(
+                                            withId(android.R.id.content),
+                                            0),
+                                    1),
+                            isDisplayed()))
+            imageButton.perform(click())
+        } catch (E: Exception) {
+            print("Open Effects Error")
+        }
         // Wait for filter menu to open.
         Thread.sleep(2000)
-
-        val textView = onView(
-                allOf(withId(android.R.id.title), withText("documentary"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(`is`("com.android.internal.view.menu.ListMenuItemView")),
-                                        0),
-                                0),
-                        isDisplayed()))
-        textView.perform(click())
-
+        try {
+            val textView = onView(
+                    allOf(withId(android.R.id.title), withText("documentary"),
+                            childAtPosition(
+                                    childAtPosition(
+                                            withClassName(`is`("com.android.internal.view.menu.ListMenuItemView")),
+                                            0),
+                                    0),
+                            isDisplayed()))
+            textView.perform(click())
+        } catch (E: Exception) {
+            print("Title Error")
+        }
         // Filter is applied to sample picture.
         Thread.sleep(5000)
     }
