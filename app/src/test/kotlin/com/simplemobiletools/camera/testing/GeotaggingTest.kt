@@ -20,5 +20,4 @@ class GeotaggingTest {
         val main = MainActivity()
         assertNull(main.getLastLocation())
     }
-
 }
