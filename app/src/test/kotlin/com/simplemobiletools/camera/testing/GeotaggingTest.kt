@@ -9,14 +9,14 @@ class GeotaggingTest {
 
     // Tests the initial geotag state
     @Test
-    fun testInitalGeotagState() {
+    fun testInitialGeotagState() {
         val main = MainActivity()
         assertTrue(main.getGeotagState())
     }
 
     // Tests the initial last location
     @Test
-    fun testInitalLastLocation() {
+    fun testInitialLastLocation() {
         val main = MainActivity()
         assertNull(main.getLastLocation())
     }
