@@ -12,8 +12,9 @@ class VoiceActivationTest {
     @Test
     fun testToggleVoiceButton() {
         val originalHandleToggleVoiceCallNumber = main.handleToggleVoiceCalled
-        val tvButton = main!!.findViewById(R.id.toggle_voice) as ImageView
-        tvButton.performClick()
+        // val tvButton = main!!.findViewById(R.id.toggle_voice) as ImageView
+        // tvButton.performClick()
+        R.id.toggle_voice.performClick()
         assert(main.handleToggleVoiceCalled == originalHandleToggleVoiceCallNumber + 1)
     }
 
