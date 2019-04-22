@@ -36,7 +36,7 @@ class VoiceActivationTest {
     fun voiceActivationTest() {
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(6000)
-
+try{
         // Open settings.
         val appCompatImageView = onView(
                 allOf(withId(R.id.settings),
@@ -48,10 +48,12 @@ class VoiceActivationTest {
                                 1),
                         isDisplayed()))
         appCompatImageView.perform(click())
-
+}catch (E: Exception ){
+    print("Settings Error")
+}
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(2000)
-
+try{
         // Toggle voice activation on.
         val appCompatImageView2 = onView(
                 allOf(withId(R.id.toggle_voice),
@@ -63,11 +65,13 @@ class VoiceActivationTest {
                                 6),
                         isDisplayed()))
         appCompatImageView2.perform(click())
-
+}catch (E: Exception ){
+    print("Toggle Voice Error")
+}
         // Added a sleep statement to match the app's execution delay.
         // It is assumed that a user would use their voice to activate picture capture at this point.
         Thread.sleep(6000)
-
+try{
         // Open settings.
         val appCompatImageView3 = onView(
                 allOf(withId(R.id.settings),
@@ -79,10 +83,12 @@ class VoiceActivationTest {
                                 1),
                         isDisplayed()))
         appCompatImageView3.perform(click())
-
+}catch (E: Exception ){
+    print("Settings Error")
+}
         // Added a sleep statement to match the app's execution delay.
         Thread.sleep(2000)
-
+try{
         // Toggle voice activation off.
         val appCompatImageView4 = onView(
                 allOf(withId(R.id.toggle_voice),
@@ -94,6 +100,9 @@ class VoiceActivationTest {
                                 6),
                         isDisplayed()))
         appCompatImageView4.perform(click())
+}catch (E: Exception ){
+    print("Toggle Voice Error")
+}
     }
 
     private fun childAtPosition(parentMatcher: Matcher<View>, position: Int): Matcher<View> {

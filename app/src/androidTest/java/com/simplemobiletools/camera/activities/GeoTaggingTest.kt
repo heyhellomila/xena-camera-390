@@ -1,17 +1,16 @@
 package com.simplemobiletools.camera.activities
 
+
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.rule.GrantPermissionRule
+import androidx.test.runner.AndroidJUnit4
 import com.simplemobiletools.camera.R
 import org.hamcrest.Description
 import org.hamcrest.Matcher
@@ -19,9 +18,11 @@ import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 
 @LargeTest
-class SettingsTest {
+@RunWith(AndroidJUnit4::class)
+class GeoTaggingTest {
 
     @Rule
     @JvmField
@@ -31,15 +32,17 @@ class SettingsTest {
     @JvmField
     var mGrantPermissionRule =
             GrantPermissionRule.grant(
+                    "android.permission.ACCESS_FINE_LOCATION",
                     "android.permission.CAMERA",
                     "android.permission.WRITE_EXTERNAL_STORAGE")
 
     @Test
-    fun settingsTest() {
+    fun geoTaggingTest() {
         // Added a sleep statement to match the app's execution delay.
+        // The recommended way to handle such scenarios is to use Espresso idling resources:
+        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
         Thread.sleep(7000)
         try {
-            // open settings
             val appCompatImageView = onView(
                     allOf(withId(R.id.settings),
                             childAtPosition(
@@ -54,10 +57,44 @@ class SettingsTest {
             print("Settings Error")
         }
         // Added a sleep statement to match the app's execution delay.
+        // The recommended way to handle such scenarios is to use Espresso idling resources:
+        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
         Thread.sleep(2000)
         try {
-            // view settings
             val appCompatImageView2 = onView(
+                    allOf(withId(R.id.toggle_geotag),
+                            childAtPosition(
+                                    allOf(withId(R.id.view_holder),
+                                            childAtPosition(
+                                                    withId(android.R.id.content),
+                                                    0)),
+                                    7),
+                            isDisplayed()))
+            appCompatImageView2.perform(click())
+        } catch (E: Exception) {
+            print("Toggle GeoTag Error")
+        }
+        // Added a sleep statement to match the app's execution delay.
+        // The recommended way to handle such scenarios is to use Espresso idling resources:
+        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
+        Thread.sleep(7000)
+        try {
+            val appCompatImageView3 = onView(
+                    allOf(withId(R.id.shutter),
+                            childAtPosition(
+                                    allOf(withId(R.id.btn_holder),
+                                            childAtPosition(
+                                                    withId(R.id.view_holder),
+                                                    9)),
+                                    1),
+                            isDisplayed()))
+            appCompatImageView3.perform(click())
+        } catch (E: Exception) {
+            print("Shutter Error")
+        }
+        Thread.sleep(5000)
+        try {
+            val appCompatImageView4 = onView(
                     allOf(withId(R.id.settings),
                             childAtPosition(
                                     allOf(withId(R.id.view_holder),
@@ -66,62 +103,51 @@ class SettingsTest {
                                                     0)),
                                     1),
                             isDisplayed()))
-            appCompatImageView2.perform(click())
+            appCompatImageView4.perform(click())
         } catch (E: Exception) {
             print("Settings Error")
         }
         // Added a sleep statement to match the app's execution delay.
-        Thread.sleep(5000)
-        try {
-            // toggle a setting to ensure UI is reactive
-            val relativeLayout2 = onView(
-                    allOf(withId(R.id.settings_turn_flash_off_at_startup_holder),
-                            childAtPosition(
-                                    allOf(withId(R.id.settings_holder),
-                                            childAtPosition(
-                                                    withId(R.id.settings_scrollview),
-                                                    0)),
-                                    12)))
-            relativeLayout2.perform(scrollTo(), click())
-        } catch (E: Exception) {
-            print("Turn Off Flash at Start up Error")
-        }
-        // Added a sleep statement to match the app's execution delay.
+        // The recommended way to handle such scenarios is to use Espresso idling resources:
+        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
         Thread.sleep(2000)
         try {
-            // Save the settings
-            val actionMenuItemView = onView(
-                    allOf(withId(R.id.action_save), withText("SAVE"),
+            val appCompatImageView5 = onView(
+                    allOf(withId(R.id.toggle_geotag),
                             childAtPosition(
-                                    childAtPosition(
-                                            withId(R.id.action_bar),
-                                            2),
-                                    1),
+                                    allOf(withId(R.id.view_holder),
+                                            childAtPosition(
+                                                    withId(android.R.id.content),
+                                                    0)),
+                                    7),
                             isDisplayed()))
-            actionMenuItemView.perform(click())
+            appCompatImageView5.perform(click())
         } catch (E: Exception) {
-            print("Save Error")
+            print("Toggle GeoTag Error")
         }
         // Added a sleep statement to match the app's execution delay.
+        // The recommended way to handle such scenarios is to use Espresso idling resources:
+        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
         Thread.sleep(2000)
         try {
-            // Return to camera preview
-            val appCompatImageButton = onView(
-                    allOf(withContentDescription("Navigate up"),
+            val appCompatImageView6 = onView(
+                    allOf(withId(R.id.shutter),
                             childAtPosition(
-                                    allOf(withId(R.id.action_bar),
+                                    allOf(withId(R.id.btn_holder),
                                             childAtPosition(
-                                                    withId(R.id.action_bar_container),
-                                                    0)),
+                                                    withId(R.id.view_holder),
+                                                    9)),
                                     1),
                             isDisplayed()))
-            appCompatImageButton.perform(click())
+            appCompatImageView6.perform(click())
         } catch (E: Exception) {
-            print("Navigation Error")
+            print("Shutter Error")
         }
     }
 
-    private fun childAtPosition(parentMatcher: Matcher<View>, position: Int): Matcher<View> {
+    private fun childAtPosition(
+            parentMatcher: Matcher<View>, position: Int): Matcher<View> {
+
         return object : TypeSafeMatcher<View>() {
             override fun describeTo(description: Description) {
                 description.appendText("Child at position $position in parent ")
@@ -130,7 +156,8 @@ class SettingsTest {
 
             public override fun matchesSafely(view: View): Boolean {
                 val parent = view.parent
-                return parent is ViewGroup && parentMatcher.matches(parent) && view == parent.getChildAt(position)
+                return parent is ViewGroup && parentMatcher.matches(parent)
+                        && view == parent.getChildAt(position)
             }
         }
     }
