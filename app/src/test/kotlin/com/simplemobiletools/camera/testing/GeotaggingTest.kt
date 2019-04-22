@@ -1,6 +1,8 @@
 package com.simplemobiletools.camera.testing
 
 import com.simplemobiletools.camera.activities.MainActivity
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class GeotaggingTest {
@@ -9,14 +11,14 @@ class GeotaggingTest {
     @Test
     fun testInitalGeotagState() {
         val main = MainActivity()
-        assert(main.getGeotagState() == false)
+        assertTrue(main.getGeotagState())
     }
 
     // Tests the initial last location
     @Test
     fun testInitalLastLocation() {
         val main = MainActivity()
-        assert(main.getLastLocation() == null)
+        assertNull(main.getLastLocation())
     }
 
 }
