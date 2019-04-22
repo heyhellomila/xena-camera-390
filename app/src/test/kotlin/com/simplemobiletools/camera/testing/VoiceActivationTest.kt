@@ -13,6 +13,4 @@ class VoiceActivationTest {
         main.onKeywordDetected()
         assert(main.tryTakePictureCalled == originalTryTakePictureCallNumber + 1)
     }
-
-
 }
