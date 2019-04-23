@@ -32,7 +32,8 @@ class QRTest {
     @JvmField
     var mGrantPermissionRule =
             GrantPermissionRule.grant(
-                    "android.permission.CAMERA")
+                    "android.permission.CAMERA",
+                    "android.permission.WRITE_EXTERNAL_STORAGE")
 
     @Test
     fun qRTest() {
