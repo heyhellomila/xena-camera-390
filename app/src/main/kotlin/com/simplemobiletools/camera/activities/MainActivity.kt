@@ -81,6 +81,9 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
         private const val ACTIVATION_KEYWORD = "Camera Activate"
     }
 
+    // voice activation testing variables
+    var tryTakePictureCalled: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
@@ -820,6 +823,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Recogn
 
     override fun onKeywordDetected() {
         mPreview?.tryTakePicture()
+        tryTakePictureCalled += 1
         Log.i("Recognition", "keyword detected !!!")
         // textView.text = "Keyword detected"
         System.out.println("Keyword detected")
