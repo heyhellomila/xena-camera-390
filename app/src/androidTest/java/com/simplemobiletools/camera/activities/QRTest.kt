@@ -57,7 +57,7 @@ class QRTest {
         // Added a sleep statement to match the app's execution delay.
         // The recommended way to handle such scenarios is to use Espresso idling resources:
         // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        Thread.sleep(5000)
+        Thread.sleep(2000)
         try {
             val appCompatImageView2 = onView(
                     allOf(withId(R.id.qr_scanner),
@@ -72,25 +72,7 @@ class QRTest {
         } catch (E: Exception) {
             print("QR Scanner Error")
         }
-        // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
         Thread.sleep(7000)
-
-        try {
-            val appCompatImageView3 = onView(
-                    allOf(withId(R.id.shutter),
-                            childAtPosition(
-                                    allOf(withId(R.id.btn_holder),
-                                            childAtPosition(
-                                                    withId(R.id.view_holder),
-                                                    9)),
-                                    1),
-                            isDisplayed()))
-            appCompatImageView3.perform(click())
-        } catch (E: Exception) {
-            print("Shutter Error")
-        }
     }
 
     private fun childAtPosition(
